@@ -1,5 +1,5 @@
 # Documentaiton
-doc/* linguist-documentation
+doc/* linguist-vendored
 # DOS Executables
 dos/* linguist-vendored
 # "Reduce" and "Standard Lisp" unavailable.
