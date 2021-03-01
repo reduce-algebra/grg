@@ -1,0 +1,124 @@
+
+    This file is part of GRG 3.2
+    Copyright (C) 1997-2000 Vadim V. Zhytnikov
+
+    GRG 3.2 and REDUCE Timing
+
+Here I collected some statistics on the performance of REDUCE and
+GRG 3.2 on various platforms. This information can be useful if you
+want to estimate which type of machine you need for your problems.
+
+The statistics includes timing for three different tests:
+
+1. First time T1 is the run-time of the standard REDUCE test reduce.tst.
+   To run this test you have to start REDUCE and type the command
+     in "$reduce/xmpl/reduce.tst";
+
+2. Second test T2 is the computation of the irreducible curvature
+   spinors for the Bondi metric. This metric is widely used for
+   comparing performance of computer algebra systems in general
+   relativity. To run this test you have to start REDUCE and GRG
+   and enter the command
+     "bondi.up";
+   or
+     "bondi.low";
+   You must use "bondi.up"; if after start GRG prints
+      System variables are upper-cased: E I PI SIN ...
+   and "bondi.low"; if the message reads
+      System variables are lower-cased: e i pi sin ...
+
+   The output of this test is stored automatically into the file
+   bondi.out and the timing can be found at the end of this file:
+     Time: XX.XX sec (Y%GC)
+
+3. Two previous tests run quite fast on modern computers and their
+   typical run-time is just several seconds. Thus they do not reflect
+   properly the performance for really hard computations. The third
+   test is a more complicated task which usually runs many minutes
+   and requires 8Mb of RAM or more. This test computes field equations
+   for some exact solution of the Poincare Gauge Theory of Gravitation
+   with dynamical torsion. To run this test you have to start GRG
+   and type
+     "pgt.up";
+   or
+     "pgt.low";
+   as explained above. Type quit; to terminate GRG session.
+
+All timings below are given in seconds. The GRG timings T2 and T3 are
+given including the garbage collection time and the garbage collection
+percentage is shown in parentheses.
+
+------------------------------------------------------------------------------
+Machine and OS:                     REDUCE:      T1:      T2:       T3:
+------------------------------------------------------------------------------
+
+  Notebooks i86:
+Cx486DX 33MHz (DOS)                3.4 PSL 7Mb   5.2   15.0 (3%)  2911.5 (19%)
+Cx486DX 33MHz (DOS)                3.5 PSL 7Mb   5.7   27.4 (2%)  5216.1 (14%)
+Cx486DX 33MHz (DOS)                3.6 PSL 7Mb   6.0   26.0 (2%)  3933.3 (11%)
+
+  PC i86:
+386DX  40MHz (DOS)                 3.4 PSL 3Mb   9.0   27.6 (1%)
+486DX2 66MHz (DOS)                 3.4 CSL 10Mb  5.8   27.8 (0%)  5174.9  (8%)
+486DX2 66MHz (DOS)                 3.5 PSL 8Mb   2.9   13.2 (3%)  2605.0 (12%)
+486DX2 66MHz (Win3.1)              3.5 PSL 15Mb  3.5   13.0 (0%)  2389.7  (5%)
+486DX2 66MHz (DOS)                 3.4 PSL 18Mb  3.2    7.3 (0%)  1215.5  (7%)
+486DX2 66MHz (DOS)                 3.6 PSL 18Mb  3.5   12.2 (0%)  1851.6  (3%)
+Pentium 100MHz (DOS)               3.4 PSL 10Mb  1.3    3.5 (0%)   610.0 (10%)
+Pentium 100MHz (DOS)               3.4 PSL 10Mb  0.77   2.1 (0%)   401.6 (13%)
+Pentium 166MHz (DOS)               3.4 PSL 7Mb   0.66   1.6 (3%)   314.2 (21%)
+Pentium MMX   166MHz (DOS)         3.4 PSL 8Mb   0.33   1.2 (4%)   226.3 (20%)
+Pentium MMX   166MHz (DOS)         3.4 PSL 24Mb  0.33   1.1 (0%)   191.9  (6%)
+Pentium MMX   233MHz (DOS)         3.4 PSL 48Mb  0.38   0.9 (0%)   145.3  (3%)
+Pentium MMX   233MHz (DOS)         3.5 PSL 48Mb  0.28   1.6 (0%)   317.4  (1%)
+Pentium MMX   233MHz (DOS)         3.6 PSL 48Mb  0.38   1.7 (0%)   251.7  (1%)
+Pentium MMX   233MHz (Linux)       3.6 PSL 36Mb  0.39   1.6 (0%)   226.3  (1%)
+Pentium Pro   200MHz 256Kb (DOS)   3.4 PSL 24Mb  0.31   0.8 (0%)   127.9  (5%)
+Pentium Pro   200MHz 256Kb (DOS)   3.6 PSL 24Mb  0.49   1.3 (0%)   192.2  (2%)
+Pentium II    233MHz (DOS)         3.4 PSL 48Mb  0.27   0.6 (0%)   109.1  (3%)
+Pentium II    233MHz (DOS)         3.6 PSL 48Mb  0.44   1.3 (0%)   181.9  (1%)
+Pentium II    233MHz (Linux)       3.6 PSL 36Mb  0.30   1.1 (0%)   136.4  (2%)
+Pentium II    233MHz (Linux)       3.7 PSL 48Mb         1.3 (0%)   143.5  (1%)
+Pentium II    266MHz (DOS)         3.4 PSL 48Mb  0.26   0.6 (0%)    96.2  (3%)
+Pentium II    266MHz (DOS)         3.6 PSL 48Mb  0.34   1.1 (0%)   154.2  (1%)
+K6-2          350MHz (DOS)         3.4 PSL 32Mb  0.5    0.8 (0%)   114.5  (4%)
+K6-2          400MHz (DOS)         3.4 PSL 48Mb         0.6 (0%)   101.3  (3%)
+K6-2          400MHz (DOS)         3.6 PSL 48Mb         0.9 (0%)   166.7  (1%)
+Celeron A     366MHz (DOS)         3.4 PSL 48Mb  0.1    0.4 (0%)    70.2  (4%)
+Celeron A     366MHz (DOS)         3.6 PSL 48Mb  0.2    0.8 (0%)   146.0  (1%)
+Celeron A     366MHz (Linux)       3.6 PSL 48Mb  0.2    0.7 (0%)   110.3  (2%)
+Celeron A     366MHz (Linux)       3.7 PSL 48Mb         0.9 (0%)   116.6  (1%)
+Pentium II    450MHz (DOS)         3.4 PSL 36Mb  0.2    0.3 (0%)    62.1  (4%)
+Pentium III   450MHz (DOS)         3.4 PSL 48Mb         0.6 (0%)    60.4  (4%)
+Pentium III   450MHz (DOS)         3.6 PSL 48Mb         0.3 (0%)   101.5  (1%)
+Celeron A     500MHz (DOS)         3.4 PSL 48Mb         0.4 (0%)    53.7  (4%)
+Celeron A     500MHz (DOS)         3.6 PSL 48Mb         0.6 (0%)   118.9  (1%)
+Celeron A     500MHz (Linux)       3.7 PSL 48Mb         0.6 (0%)    97.1  (1%)
+Pentium III E 500MHz (DOS)         3.4 PSL 48Mb                     50.6  (5%)
+Pentium III E 500MHz (DOS)         3.6 PSL 48Mb                     75.6  (2%)
+Pentium III E 667MHz (DOS)         3.4 PSL 48Mb                     39.3  (6%)
+Pentium III E 667MHz (DOS)         3.6 PSL 48Mb                     58.1  (2%)
+Pentium III E 733MHz (DOS)         3.4 PSL 48Mb                     33.6  (4%)
+Pentium III E 733MHz (Win98)       3.6 CSL/WC 48Mb                 156.0  (1%)
+Pentium III E 733MHz (Win98)       3.6 CSL/VC 48Mb                  67.0  (2%)
+Pentium III E 733MHz (DOS)         3.6 PSL 48Mb                     50.8  (1%)
+Pentium III E 733MHz (Linux)       3.7 PSL 48Mb                     38.9  (2%)
+
+  IBM RS/6000:
+RS/6000 3BT  (AIX)                 3.5 PSL 8Mb   1.1    6.0 (5%)  1267.1 (15%)
+RS/6000 590  (AIX)                 3.5 PSL 8Mb   1.1    5.9 (5%)  1226.8 (15%)
+
+  SPARC:
+SPARC 1+                     65MHz 3.6 PSL 20Mb  3.2   12.5 (0%)  1716.1  (5%)
+SPARC 2                      75MHz 3.6 PSL 20Mb  2.1    7.8 (0%)  1132.2  (4%)
+SPARC 10/20     SuperSPARC   33MHz 3.6 PSL 20Mb  1.4    5.9 (0%)   832.0  (3%)
+SPARC 4         microSPARC  110MHz 3.6 PSL 20Mb  0.98   3.5 (0%)   442.0  (3%)
+SPARC 20-612  2xSuperSPARC   60MHz 3.6 PSL 20Mb  0.76   3.2 (0%)   431.1  (4%)
+HyperSPARC 22 2xHyperSPARC  125MHz 3.6 PSL 20Mb  0.58   2.3 (0%)   308.4  (4%)
+Ultra 1         UltraSPARC  167MHz 3.6 PSL 20Mb  0.30   1.2 (0%)   187.9  (4%)
+Ultra 2       2xUltraSPARC  167MHz 3.6 PSL 20Mb  0.31   1.2 (0%)   190.5  (4%)
+Ultra 2       2xUltraSPARC  167MHz 3.7 PSL 120Mb                   299.0  (0%)
+Ultra 4    4xUltraSPARC-II  400MHz 3.7 PSL 120Mb                   113.1  (0%)
+Ultra 5/10   UltraSPARC-IIi 440MHz 3.7 PSL 120Mb                   114.6  (0%)
+
+------------------------------------------------------------------------------

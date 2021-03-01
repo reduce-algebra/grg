@@ -1,0 +1,48 @@
+off echo$
+%==========================================================================%
+%   GRG 3.2 Compilation [CSL]              (C) 1988-97  Vadim V. Zhytnikov %
+%==========================================================================%
+% This file is distributed without any warranty. You may modify it but you %
+% are not allowed to remove author's name and/or distribute modified file. %
+%==========================================================================%
+
+<< prin2 "Compiling GRG 3.2, wait few minutes."; terpri() >>$
+
+out "grgcomp.log"$
+
+in "expand.csl"$
+
+lisp$
+
+off lower$
+off raise$
+
+rdf "xdecl.sl"$
+
+load!_package compiler$
+
+faslout "grgdecl" $ rdf "xdecl.sl" $ faslend$
+faslout "grggeom" $ rdf "xgeom.sl" $ faslend$
+faslout "grggrav" $ rdf "xgrav.sl" $ faslend$
+faslout "grginit" $ rdf "xinit.sl" $ faslend$
+faslout "grgclass"$ rdf "xclass.sl"$ faslend$
+faslout "grgcomm" $ rdf "xcomm.sl" $ faslend$
+faslout "grgcoper"$ rdf "xcoper.sl"$ faslend$
+faslout "grgmain" $ rdf "xmain.sl" $ faslend$
+faslout "grgmater"$ rdf "xmater.sl"$ faslend$
+faslout "grgprin" $ rdf "xprin.sl" $ faslend$
+faslout "grgproc" $ rdf "xproc.sl" $ faslend$
+faslout "grgtrans"$ rdf "xtrans.sl"$ faslend$
+faslout "grgcfg"  $ rdf "grgcfg.sl"$ faslend$
+faslout "grg32"   $ rdf "grg32.sl" $ faslend$
+faslout "grg"     $ rdf "grg.sl"   $ faslend$
+
+shut "grgcomp.log"$
+
+<< terpri(); prin2 "GRG has been compiled."; terpri(); >>$
+
+bye$
+
+end;
+
+%==========================================================================%

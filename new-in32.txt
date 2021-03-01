@@ -1,0 +1,229 @@
+
+   This file is part of GRG 3.2  Copyright (C) 1997 Vadim V. Zhytnikov
+
+   This note outlines the main new features of GRG 3.2 compared to
+   the previous version GRG 3.1. Detailed description of GRG 3.2 can
+   be found in the manual.
+
+1. Dimensionality and Signature
+
+   GRG 3.2 removes the most important restriction of GRG 3.1 -
+   now GRG 3.2 works in any dimension greater or equal 2.
+   The only signatures GRG 3.1 works with are (-1,1,1,1) or
+   (1,-1,-1,-1). In GRG 3.2 you can specify any signature of the
+   form diag(+1,-1,...).
+
+2. Metric and Frame
+
+   In GRG 3.1 the space-time metric can be specified only in the form
+   of the tetrad and the tetrad metric must be quasi-orthogonal (here
+   "quasi" means any metric having constant coefficients: null,
+   semi-null, diagonal Lorentzian etc).  In GRG 3.2 you can use
+   arbitrary metric and frame (in GRG 3.2 we use the name "frame"
+   instead of "tetrad" since the latter is essentially  4-dimensional).
+   In general the space-time line-element in GRG 3.1 and 3.2 is
+
+        2           i  j
+     d s   =  G    T  T
+               ij
+
+   Here G.i.j (M in GRG 3.1) is the Metric and T'i is frame (former
+   Tetrad). In GRG 3.1 the G (M) has predefined value equals to Null
+   Metric and can be changed only by assigning a new value to M or
+   loading the file "lorentz.loa" or similar. Even more, the coefficients
+   of M in GRG 3.1 must be constant ("tetrad" formalism). In GRG 3.2 both
+   G.i.j and T'i are initially indefinite. You can assign any value
+   to these quantities  and G is no not necessary constant now. But if
+   no value is given to G or T then GRG 3.2 automatically assumes
+   the default values to these quantities
+
+       i        i
+      T   =  d x
+
+      G   = diag(i,j)
+       ij
+
+   where diag(i,j) is the matrix having only diagonal nonzero
+   elements +1 or -1 according to current signature. For example,
+   if dimensionality 3 with the signature diag(+1,-1,+1) and no
+   value is specified to T and G than GRG 3.2 automatically assumes
+
+                                0           1           2
+      G    = diag(+1,-1,+1),   T  = d x0,  T  = d x1,  T  = d x2,
+        ij
+
+   which gives finally
+
+         2         2       2       2
+      d s   =  d x0  - d x1  + d x2
+
+   where x0, x1, x2 are the coordinates. Thus, if you want
+   to work in "tetrad" formalism - give the value to T and
+   leave G to be default constant diagonal metric. Otherwise,
+   if you want to use usual coordinate formalism - assign the
+   value to G only and the default holonomic value will be
+   automatically assigned to frame T.
+
+3. Nonmetricity
+
+   GRG 3.2 works with arbitrary affine connection having both the
+   torsion and nonmetricity. The corresponding switches TORSION and
+   NONMETR determine the connection type.
+
+4. Better Representation of Built-in and User-Defined objects
+
+   GRG 3.2 knows various symmetries with respect to index permutation:
+   symmetry, antisymmetry, cyclic symmetry and Hermitian symmetry.
+   All these symmetries can be applied to both single indices and the
+   groups of indices.  The groups of symmetric indices can be nested
+   (like the symmetries of the Riemann curvature tensor).
+
+   In GRG 3.2 the built-in and user-defined objects can have indices
+   of the following types: holonomic (coordinate) indices (new),
+   frame indices, undotted and dotted spinorial indices, and
+   enumerating indices. All indices can be upper and lower (upper
+   spinorial indices are new).
+
+   GRG 3.2 understands tensor densities and pseudo-tensors.
+
+   The "New Object" declaration is redesigned to account for the
+   aforementioned changes.
+
+5. Output Modes
+
+   The new and quite unique feature of GRG 32 is that it can export
+   the results of computations into other programs. Now GRG 3.2
+   supports output modes for all major computer algebra systems
+   Maple, Mathematica, Macsyma, REDUCE and the document preparation
+   system LaTeX. Thus, for example, you can write result of
+   computation into a file in the Maple input format and later use
+   Maple to work with the data. LaTeX output mode allows one to
+   insert the results of computation into a document.
+
+6. GRG 3.2 is compatible with the REDUCE graphic-shells such as XR
+   (under UNIX) or PSLLW (under MS Windows). In graphic mode GRG 3.2
+   provides niece output with greek characters, integral signs etc.
+
+7. The quite restrictive feature of GRG 3.1 is that it permits to use
+   only some fixed set of the REDUCE built-in functions (such as SIN,
+   COS, LOG etc) and switches. GRG 3.2 is not so restrictive.
+   You can use any REDUCE switch, function (operator in the REDUCE
+   terminology) or user-defined procedure. For example:
+   (a) You can load the package specfn and use in GRG all special
+       function defined in this package.
+   (b) You can write your own procedure in the REDUCE language
+       and apply it in GRG.
+   (c) You can use built-in REDUCE operators such as INT, LIMIT,
+       SUM, PROD, DEN, NUM and any other.
+   Notice also GRG 3.2 allows one to apply REDUCE procedures and
+   functions not only to algebraic expressions but to vectors
+   and exterior forms in accordance to the distributive law.
+
+8. Many GRG built-in objects and formulas (ways of calculation) have
+   limited scope. Some are valid in a particular dimension only,
+   some, like spinors, require standard null frame etc.  GRG 3.2
+   always checks the applicability conditions for any built-in
+   object and formula.
+
+9. The mechanism for computing covariant differentials and Lie
+   derivatives in GRG 3.1 is rather clumsy. In GRG 3.2 it is
+   completely replaced by another simpler and more natural method:
+   one can use covariant exterior differentials, covariant
+   derivatives and Lie derivatives directly in expressions.
+
+10. In GRG 3.2 one can access the left- and right-hand side of
+    equations using LHS(...) and RHS(...).  The equations are
+    properly transformed under the frame (tetrad) rotation and
+    the coordinate transformations.
+
+11. In GRG 3.2 expressions are case sensitive but commands and names
+    of objects are not. Thus, the variable alpha is different from
+    ALPHA but command Find is the same as find, FIND etc.
+
+12. Usually irreducible spinors are labelled in GRG by so called
+    summed spinorial index. This method provides the most efficient
+    way to store irreducible spinor components but it is inconvenient
+    when the spinor is used in expressions. Now any irreducible
+    spinor can be labeled by both single summed index of rank N or by
+    a group of N single spinorial indices. Analogously the frame
+    index (for null frame) can be also represented as a pair of
+    single spinorial indices.
+
+13. GRG 3.2 provides simple interface to the REDUCE algebraic
+    equation solver. The solutions can be used in the "Let" and "SUB"
+    substitutions.
+
+14. GRG 3.2 includes algebraic classification schemes for
+    the following spinors: Weyl spinor W_ABCD, Traceless
+    Ricci spinor C_AB_CD~, Electromagnetic stress spinor F_AB,
+    Vector V_A_B~ (in spinorial representation). The work
+    of all classification algorithms is traced. The command
+    Petrov Type; is replaced by the command Classify <object>;.
+
+15. If some built-in object has several ways of calculation GRG 3.2
+    provides better method for choosing the particular way.  One can
+    indicate the way both by its name and by specifying any object
+    which is present in the right-hand side of the corresponding
+    formula.
+
+16. GRG 3.2 provide interface to the REDUCE package dfpart.red
+    written by H. Melenk. This very useful package introduces the
+    notion of the partial derivative of a function with respect to
+    its n-th argument and performs the chain differentiation.
+
+17. Configuring GRG
+
+    GRG 3.2 has some configuration facilities. The configuration
+    file allows one to define:
+      (a) the default dimensionality and signature,
+      (b) the default position of switches,
+      (c) the packages which must be preloaded,
+      (d) the synonymy for the commands.
+
+    Actually there are two configuration files. The first grgcfg.sl
+    defines the "global" GRG configuration at the moment of the
+    compilation. You can edit this file before compiling GRG and the
+    corresponding settings will be active whenever GRG is started.
+    The second configuration file grg.cfg is optional. You can keep
+    it in your working directory to override the "global" settings.
+
+    Another configuration tool is the environment variable "grg".
+    This environment variable should contain the name of some
+    directory (so called GRG System Directory). This directory can
+    serve as the depository for the files which are oftenly used.
+    So it is not necessary to have their copy in every working
+    directory.
+
+18. The GRG commands are terminated now only by the symbol ;
+    (not by ; and ?). The end-of-file symbol for GRG batch
+    files has changed from ! to $.
+
+19. The GRG 3.1 command Help <object>; is replaced by the
+    command Show <object>;. The commands Mode; and Signature;
+    are replaced by the command Status;.
+
+20. Built in Objects and Ways of calculation
+
+    The list of built-in objects and formulas is significantly
+    changed. Some objects and ways of calculation are renamed,
+    some abolished but many other are added. Now GRG 3.2 has
+    built-in object and formulas for:
+      - Connection, torsion, nonmetricity (new).
+      - Curvature.
+      - Irreducible decomposition of the curvature, torsion, and
+        nonmetricity in any dimension (new).
+      - Einstein equations.
+      - Scalar field with minimal and non-minimal interaction.
+      - Electromagnetic field.
+      - Yang-Mills field.
+      - Dirac spinor field.
+      - Geodesic equation (new).
+      - Optical scalars (new).
+      - Kinematics for time-like congruences (new).
+      - Ideal fluid and spin fluid (new).
+      - Newman-Penrose formalism (new).
+      - Gravitational equations for the theory with arbitrary
+	gravitational Lagrangian in Riemann and Riemann-Cartan
+	spaces.
+
+----------------------------------------------------------------------

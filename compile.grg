@@ -1,0 +1,48 @@
+off echo$
+% This file is the part of GRG 3.2 (C) 1997  V.V.Zhytnikov
+lisp$
+begin
+psl := getd 'dskin;
+low := getd '!c!a!r;
+if psl then lis := "PSL" else lis:= "CSL";
+if low then cas := "Lower" else cas := "Upper";
+prin2 "This REDUCE is based on ";
+prin2 lis;
+prin2 " and is ";
+prin2 cas;
+prin2 "-Cased.";
+terpri();
+if low then <<
+  prin2 "Use lower-case symbols for built-in constants and functions:";
+  terpri();
+  prin2 "  e  i  pi  sin  cos  log  ..."; >>
+else <<
+  prin2 "Use upper-case symbols for built-in constants and functions:";
+  terpri();
+  prin2 "  E  I  PI  SIN  COS  LOG  ..."; >>;
+terpri();
+terpri();
+compok := errorset('(evload (quote(compiler))),nil,nil);
+if atom compok then <<
+  prin2 "Compiler is absent! Sorry, GRG cannot be installed. ";
+  terpri();
+  terpri();
+  bye; >>
+else <<
+  %prin2 "Compiler is present. I'm about to compile GRG ...";
+  %if psl then <<
+  %  prin2 "To install GRG use command:";
+  %  terpri();
+  %  prin2 "   in ""compile.psl"";"; >>
+  %else <<
+  %  prin2 "To install GRG use command:";
+  %  terpri();
+  %  prin2 "   in ""compile.csl"";"; >>;
+  %terpri();
+  %pause;
+  >>;
+end$
+if psl then in "compile.psl" else in "compile.csl"$
+quit$
+end;
+

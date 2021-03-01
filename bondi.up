@@ -1,0 +1,17 @@
+Output "bondi.out";
+Zero Time;
+Comment: Bondi metric;
+Coordinates u,r,theta,phi;
+Functions Beta(u,r,theta),V(u,r,theta),U(u,r,theta),Gamma(u,r,theta);
+Null Metric;
+Frame
+  T0 = E^Beta*d u,
+  T1 = E^Beta*(d r + (V/r)*d u),
+  T2 = r*(-U*E^Gamma*d u+E^Gamma*d theta
+                           +I*SIN(theta)*E^(-Gamma)*d phi)/SQRT(2),
+  T3 = r*(-U*E^Gamma*d u+E^Gamma*d theta
+                           -I*SIN(theta)*E^(-Gamma)*d phi)/SQRT(2);
+Off WRS;
+Find and Write Curvature Spinors;
+Time;
+Quit;

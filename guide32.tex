@@ -1,0 +1,1336 @@
+%==========================================================================%
+%  GRG 3.2 Reference Guide                  (C) 1988-97 Vadim V. Zhytnikov %
+%==========================================================================%
+%  This document requires LaTeX 2e. Run LaTeX once:                        %
+%                                                                          %
+%     latex guide32                                                        %
+%                                                                          %
+%==========================================================================%
+
+\documentclass[twocolumn]{article}
+\addtolength{\voffset}{-10mm}
+\addtolength{\textheight}{28mm}
+\addtolength{\hoffset}{-8mm}
+\addtolength{\textwidth}{10mm}
+
+\usepackage{indentfirst}
+
+%%% This is for CM fonts
+\newcommand{\grgtt}{\ttfamily}
+\renewcommand{\ttdefault}{cmtt}
+\newcommand{\shadedbox}[1]{\fbox{#1}}
+\fboxsep=1pt
+%%%
+
+%%% Page layout ...
+\parindent=0mm
+\parskip=2mm
+\vfuzz=3pt
+%%%
+
+%%% My own \tt font ...
+\makeatletter
+\def\verbatim@font{\grgtt}
+\makeatother
+\renewcommand{\tt}{\grgtt}
+%%%
+
+%%% Special symbols ...
+\def\^{{\tt \char'136}}                     %%%  \^   is  ^
+\def\_{{\tt \char'137}}                     %%%  \_   is  _
+\newcommand{\w}{{\tt \char'057 \char'134}}  %%%  \w   is  /\
+\newcommand{\bs}{{\tt \char'134}}           %%%  \bs  is  \
+\newcommand{\ul}{{\tt \char'137}}           %%%  \ul  is  _
+\newcommand{\dd}{{\tt \char'043}}           %%%  \dd  is  #
+\newcommand{\cc}{{\tt \char'176}}           %%%  \cc  is  ~
+\newcommand{\ip}{{\tt \char'137 \char'174}} %%%  \ip  is  _|
+\newcommand{\ii}{{\tt \char'174}}           %%%  \ii  is  |
+%%%
+
+%%% \grg GRG logo ...
+%\newcommand{\grglogofont}{\bfseries}
+%\newcommand{\grg}{{\grglogofont GRG}}
+\newcommand{\grg}{GRG}
+
+%%% \comm{...} in-line command in the box
+\newcommand{\comm}[1]{\shadedbox{\tt#1}}
+%%% \command{...} commands in (shaded) box
+\newcommand{\command}[1]{\vspace*{1mm}\hfil\break\hspace*{5mm}
+\shadedbox{\begin{tabular}{l}
+\tt#1 \end{tabular}}\vspace*{0.7mm}\newline}
+\newcommand{\longcommand}[1]{\vspace*{1mm}\hfil\break
+\shadedbox{\begin{tabular}{l}
+\tt#1 \end{tabular}}\vspace*{0.7mm}\newline}
+
+%%% \parm{...} is \itshape for parameters
+\newcommand{\parm}[1]{{\slshape\sffamily#1}}
+%%% \opt{...} optional
+\newcommand{\opt}[1]{{\rm [}#1{\rm ]}}
+%%% \rpt{...} repeat
+\newcommand{\rpt}[1]{{#1}\,\,{\rm [}{\tt,}{#1}{\tiny\dots}{\rm ]}}
+
+%%% Headings style ...
+%\usepackage{fancyheadings}
+%%% We just inserat the fancyheadings.sty here literally ...
+\makeatletter
+% fancyheadings.sty version 1.7
+% Fancy headers and footers.
+% Piet van Oostrum, Dept of Computer Science, University of Utrecht
+% Padualaan 14, P.O. Box 80.089, 3508 TB Utrecht, The Netherlands
+% Telephone: +31-30-531806. piet@cs.ruu.nl (mcvax!sun4nl!ruuinf!piet)
+% Sep 16, 1994
+% version 1.4: Correction for use with \reversemargin
+% Sep 29, 1994:
+% version 1.5: Added the \iftopfloat, \ifbotfloat and \iffloatpage commands
+% Oct 4, 1994:
+% version 1.6: Reset single spacing in headers/footers for use with
+% setspace.sty or doublespace.sty
+% Oct 4, 1994:
+% version 1.7: changed \let\@mkboth\markboth to
+% \def\@mkboth{\protect\markboth} to make it more robust
+
+\def\lhead{\@ifnextchar[{\@xlhead}{\@ylhead}}
+\def\@xlhead[#1]#2{\gdef\@elhead{#1}\gdef\@olhead{#2}}
+\def\@ylhead#1{\gdef\@elhead{#1}\gdef\@olhead{#1}}
+
+\def\chead{\@ifnextchar[{\@xchead}{\@ychead}}
+\def\@xchead[#1]#2{\gdef\@echead{#1}\gdef\@ochead{#2}}
+\def\@ychead#1{\gdef\@echead{#1}\gdef\@ochead{#1}}
+
+\def\rhead{\@ifnextchar[{\@xrhead}{\@yrhead}}
+\def\@xrhead[#1]#2{\gdef\@erhead{#1}\gdef\@orhead{#2}}
+\def\@yrhead#1{\gdef\@erhead{#1}\gdef\@orhead{#1}}
+
+\def\lfoot{\@ifnextchar[{\@xlfoot}{\@ylfoot}}
+\def\@xlfoot[#1]#2{\gdef\@elfoot{#1}\gdef\@olfoot{#2}}
+\def\@ylfoot#1{\gdef\@elfoot{#1}\gdef\@olfoot{#1}}
+
+\def\cfoot{\@ifnextchar[{\@xcfoot}{\@ycfoot}}
+\def\@xcfoot[#1]#2{\gdef\@ecfoot{#1}\gdef\@ocfoot{#2}}
+\def\@ycfoot#1{\gdef\@ecfoot{#1}\gdef\@ocfoot{#1}}
+
+\def\rfoot{\@ifnextchar[{\@xrfoot}{\@yrfoot}}
+\def\@xrfoot[#1]#2{\gdef\@erfoot{#1}\gdef\@orfoot{#2}}
+\def\@yrfoot#1{\gdef\@erfoot{#1}\gdef\@orfoot{#1}}
+
+\newdimen\headrulewidth
+\newdimen\footrulewidth
+\newdimen\plainheadrulewidth
+\newdimen\plainfootrulewidth
+\newdimen\headwidth
+\newif\if@fancyplain \@fancyplainfalse
+\def\fancyplain#1#2{\if@fancyplain#1\else#2\fi}
+
+% Command to reset various things in the headers:
+% a.o.  single spacing (taken from setspace.sty)
+% and the catcode of ^^M (so that epsf files in the header work if a
+% verbatim crosses a page boundary)
+\def\fancy@reset{\restorecr
+ \def\baselinestretch{1}%
+ \ifx\undefined\@newbaseline% NFSS not present; 2.09 or 2e
+  \ifx\@currsize\normalsize\@normalsize\else\@currsize\fi%
+ \else% NFSS (2.09) present
+  \@newbaseline%
+ \fi}
+
+% Initialization of the head and foot text.
+
+\headrulewidth 0.4pt
+\footrulewidth\z@
+\plainheadrulewidth\z@
+\plainfootrulewidth\z@
+
+\lhead[\fancyplain{}{\sl\rightmark}]{\fancyplain{}{\sl\leftmark}}
+%  i.e. empty on ``plain'' pages \rightmark on even, \leftmark on odd pages
+\chead{}
+\rhead[\fancyplain{}{\sl\leftmark}]{\fancyplain{}{\sl\rightmark}}
+%  i.e. empty on ``plain'' pages \leftmark on even, \rightmark on odd pages
+\lfoot{}
+\cfoot{\rm\thepage} % page number
+\rfoot{}
+
+% Put together a header or footer given the left, center and
+% right text, fillers at left and right and a rule.
+% The \lap commands put the text into an hbox of zero size,
+% so overlapping text does not generate an errormessage.
+
+\def\@fancyhead#1#2#3#4#5{#1\hbox to\headwidth{\fancy@reset\vbox{\hbox
+{\rlap{\parbox[b]{\headwidth}{\raggedright#2\strut}}\hfill
+\parbox[b]{\headwidth}{\centering#3\strut}\hfill
+\llap{\parbox[b]{\headwidth}{\raggedleft#4\strut}}}\headrule}}#5}
+
+
+\def\@fancyfoot#1#2#3#4#5{#1\hbox to\headwidth{\fancy@reset\vbox{\footrule
+\hbox{\rlap{\parbox[t]{\headwidth}{\raggedright#2\strut}}\hfill
+\parbox[t]{\headwidth}{\centering#3\strut}\hfill
+\llap{\parbox[t]{\headwidth}{\raggedleft#4\strut}}}}}#5}
+
+\def\headrule{{\if@fancyplain\headrulewidth\plainheadrulewidth\fi
+\hrule\@height\headrulewidth\@width\headwidth \vskip-\headrulewidth}}
+
+\def\footrule{{\if@fancyplain\footrulewidth\plainfootrulewidth\fi
+\vskip-0.3\normalbaselineskip\vskip-\footrulewidth
+\hrule\@width\headwidth\@height\footrulewidth\vskip0.3\normalbaselineskip}}
+
+\def\ps@fancy{
+\def\@mkboth{\protect\markboth}
+\@ifundefined{chapter}{\def\sectionmark##1{\markboth
+{\uppercase{\ifnum \c@secnumdepth>\z@
+ \thesection\hskip 1em\relax \fi ##1}}{}}
+\def\subsectionmark##1{\markright {\ifnum \c@secnumdepth >\@ne
+ \thesubsection\hskip 1em\relax \fi ##1}}}
+{\def\chaptermark##1{\markboth {\uppercase{\ifnum \c@secnumdepth>\m@ne
+ \@chapapp\ \thechapter. \ \fi ##1}}{}}
+\def\sectionmark##1{\markright{\uppercase{\ifnum \c@secnumdepth >\z@
+ \thesection. \ \fi ##1}}}}
+\ps@@fancy
+\global\let\ps@fancy\ps@@fancy
+\headwidth\textwidth}
+\def\ps@fancyplain{\ps@fancy \let\ps@plain\ps@plain@fancy}
+\def\ps@plain@fancy{\@fancyplaintrue\ps@@fancy}
+\def\ps@@fancy{
+\def\@oddhead{\@fancyhead\@lodd\@olhead\@ochead\@orhead\@rodd}
+\def\@oddfoot{\@fancyfoot\@lodd\@olfoot\@ocfoot\@orfoot\@rodd}
+\def\@evenhead{\@fancyhead\@rodd\@elhead\@echead\@erhead\@lodd}
+\def\@evenfoot{\@fancyfoot\@rodd\@elfoot\@ecfoot\@erfoot\@lodd}
+}
+\def\@lodd{\if@reversemargin\hss\else\relax\fi}
+\def\@rodd{\if@reversemargin\relax\else\hss\fi}
+
+\let\latex@makecol\@makecol
+\def\@makecol{\let\topfloat\@toplist\let\botfloat\@botlist\latex@makecol}
+\def\iftopfloat#1#2{\ifx\topfloat\empty #2\else #1\fi}
+\def\ifbotfloat#1#2{\ifx\botfloat\empty #2\else #1\fi}
+\def\iffloatpage#1#2{\if@fcolmade #1\else #2\fi}
+\makeatother
+%%%
+\pagestyle{fancy}
+
+\headrulewidth=0.1mm
+\footrulewidth=0.1mm
+
+\lhead{\bf\slshape GRG 3.2 Reference Guide}
+\chead{}
+\rhead{\bf\thepage}
+
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%%%
+
+%%% Sections ...
+\renewcommand{\thesection}{\hspace*{-5mm}}
+\renewcommand{\thesubsection}
+   {{\sf\slshape\arabic{subsection}.}\hspace*{-3mm}}
+
+
+\begin{document}
+
+%\title{\LARGE\bf \grg\ 3.2 Reference Guide\vspace*{-8mm}}
+%\date{}
+%\maketitle
+
+%\raggedright
+\footnotesize
+
+
+\section{\LARGE\sf\slshape Commands}
+\chead{\slshape Commands}
+
+\tabcolsep=0.5mm
+
+\grg\ commands are not case sensitive, i.e. they can be
+typed in lower, upper or mixed case.  Optional parts of the
+commands are enclosed in square brackets \opt{\parm{x}}
+and construction \rpt{\parm{x}} stands for {\tt \parm{x}} or
+{\tt \parm{x},\,\parm{x}} or {\tt \parm{x},\,\parm{x},\,\parm{x}} etc.
+
+
+\subsection{\sf\slshape Session Control Commands}
+
+The command \comm{Quit;} terminates both \grg\ and {\sc Reduce}
+sessions. The command \comm{Stop;} terminates \grg\ task and
+brings the session control menu.
+
+Batch file execution:
+\command{\opt{Input} "\parm{file}";}
+The batch file execution can be suspended by the command
+\comm{Pause;} and resumed by the command \comm{Next;}.
+
+The command \comm{Output "\parm{file}";}\vspace*{0.4mm} redirects
+all \grg\ output into the \parm{file}.
+The command \comm{EndO;} or \comm{End of Output;} closes
+the \parm{file} and restores standard output.
+
+
+\subsection{\sf\slshape Operating System Commands}
+
+The command \comm{System;} suspend \grg\ session
+and passes control to the operating system command level.
+The command \comm{System "\parm{command}";}
+executes single operating system \parm{command}.
+
+
+\subsection{\sf\slshape Comments}\vspace{-5mm}
+
+\command{Comment \parm{any text};\\\tt
+\parm{any command} \% \parm{any text};\\\tt
+\% \parm{any text};}
+
+
+\subsection{\sf\slshape Switches Control Commands}
+
+The commands
+\command{On \rpt{\parm{switch}}; \\\tt
+         Off \rpt{\parm{switch}};}
+change the \parm{switch} position and the command
+\command{\opt{Show} Switch \parm{switch};\\\tt Show \parm{switch};}
+prints current \parm{switch} status.
+
+
+\subsection{\sf\slshape Info Commands}
+
+Time and garbage collection time commands:
+\command{\opt{Show} Time;\\\tt
+\opt{Show} GC Time;}
+The timer can be set to zero by the command \comm{Zero Time;}.
+
+The command
+\command{\opt{Show} Status;}
+print information about the current system directory,
+type of the metric, frame and basis.
+
+The command \comm{Show *;} prints the list of all built-in
+objects. The command \comm{Show a*;} prints the list of the
+built-in objects whose names begins with the character {\tt a}.
+Finally the command
+\command{Show \parm{object};}
+prints detailed information about the \parm{object} including its
+name, symbol, indices, symmetries, type of the component,
+current state and ways of calculation.
+
+The command \comm{Show All;} prints a list of objects whose
+values are currently known.
+
+
+\subsection{\sf\slshape Declarations}
+
+The dimension and signature declaration
+\command{Dimension \parm{dim} with \opt{Signature} (\rpt{\parm{pm}});}
+where \parm{pm} is {\tt +} or {\tt -}.
+
+The coordinates and constants declarations
+\command{Coordinates \rpt{\parm{x}};\\\tt
+         Constants \rpt{\parm{c}};}
+
+The functions and generic function declarations
+\command{Functions \rpt{\parm{f}\,\,\opt{{\upshape (}\rpt{\parm{x}}{\upshape )}}};\\\tt
+Generic Functions \rpt{\parm{f}\,\,{\upshape (}\rpt{\parm{x}}{\upshape )}};}
+
+Function properties declaration
+\command{Symmetric \rpt{\parm{f}};\\\tt
+Antisymmetric \rpt{\parm{f}};\\\tt
+Odd \rpt{\parm{f}};\\\tt
+Even \rpt{\parm{f}}; }
+
+The command \comm{Affine Parameter \parm{s};} declares
+the affine parameter.
+
+
+\subsection{\sf\slshape New Object Declaration}
+
+The following equivalent declarations
+\command{New Object \parm{ID}\,\opt{\parm{ilst}}\,\opt{is \parm{ctype}}\,\opt{with \opt{Symmetries}\,\parm{slst}};\\\tt
+Object \parm{ID}\,\opt{\parm{ilst}}\,\opt{is \parm{ctype}}\,\opt{with \opt{Symmetries}\,\parm{slst}};\\\tt
+New \parm{ID}\,\opt{\parm{ilst}}\,\opt{is \parm{ctype}}\,\opt{with \opt{Symmetries}\,\parm{slst}}; }
+introduce new user-defined object, equation
+\command{New Equation \parm{ID}\,\opt{\parm{ilst}}\,\opt{is \parm{ctype}}\,\opt{with \opt{Symmetries}\,\parm{slst}};\\\tt
+Equation \parm{ID}\,\opt{\parm{ilst}}\,\opt{is \parm{ctype}}\,\opt{with \opt{Symmetries}\,\parm{slst}}; }
+or connection 1-form
+\command{New Connection \parm{ID}\,\opt{\parm{ilst}}\,\opt{is 1-form};\\\tt
+Connection \parm{ID}\,\opt{\parm{ilst}}\,\opt{is 1-form}; }
+
+Here \parm{ilst} is the index type list
+\comm{\rpt{\parm{ipos}\ \parm{itype}}}
+where \parm{ipos} is one of the markers denoting the
+index position
+\command{{\tt '}\rm\ \ upper frame
+\\{\tt .}\rm\ \ lower frame
+\\{\tt \^}\rm\ \ upper holonomic
+\\{\tt \ul}\rm\ \ lower holonomic }
+and \parm{itype} determines index type. For example:
+holonomic or frame indices {\tt a b c}, enumerating indices
+{\tt i3 i15 idim}, spinor {\tt A PQ MNL} and conjugated spinor
+indices {\tt A\cc\ PQ\cc\ MNL\cc}.
+
+The \parm{ctype} defines the type of the component:
+\command{Scalar \opt{Density \parm{dens}}\\\tt
+\parm{n}-form \opt{Density \parm{dens}}\\\tt
+Vector \opt{Density \parm{dens}}}
+The \parm{dens} defines pseudo-scalar and density
+properties of the object with respect to
+coordinate and frame transformations:
+\command{\opt{sgnL}\opt{*sgnD}\opt{*L\^\parm{n}}\opt{*D\^\parm{m}}}
+where \comm{D} and \comm{L} is the coordinate and frame
+transformation determinants respectively.
+
+The symmetry specification \parm{slst} is a list \rpt{\parm{slst1}}.
+Each \parm{slst1} is {\tt \parm{sym}(\rpt{\parm{slst2}})}
+where \parm{sym} is: \comm{a} for antisymmetry, \comm{t} for symmetry,
+\comm{c} for cyclic symmetry and \comm{h} for Hermitian symmetry.
+The \parm{slst2} is either index number, or list of index numbers
+or once again another symmetry specification \parm{slst1}.
+
+The command \comm{Forget \parm{object};} removes the
+user-defined \parm{object}.
+
+
+\subsection{\sf\slshape Assignment}
+
+The command
+\command{\opt{\parm{Name}}\,\rpt{\parm{ID}\,\opt{{\upshape(}\rpt{\parm{i}}{\upshape)}}=\parm{expr}};}
+assigns the value to the component(s) of the object \parm{Name}
+having the symbol \parm{ID}.
+
+
+\subsection{\sf\slshape Object Calculation}
+
+The command for calculating the value of an \parm{object}
+using built-in \parm{way} (formula):
+\command{Find \rpt{\parm{object}}\,\opt{\parm{way}};}
+Here \parm{object} is either the name or the symbol of
+the built-in object. The \parm{way} is either the name of the
+way or any object which is present at the right-hand side of
+the formula.
+
+The command
+\command{Null Metric;}
+makes the metric to be the \emph{standard null metric}.
+
+The command
+re-simplifies the \parm{object}.
+The command
+\command{Erase \parm{object};}
+removes the value of the \parm{object}
+and makes it indefinite once again. The command
+\command{Zero \parm{object};}
+assigns zero value to the \parm{object}.
+The command
+\command{Normalize \parm{equation};}
+replaces equation $l=r$ by $l-r=0$.
+
+
+\subsection{\sf\slshape Object Printing}
+
+The command
+\command{Write \rpt{\parm{object}}\,\,\opt{to "\parm{file}"};}
+prints the value of the \parm{object} (to the \parm{file} if present).
+
+The command
+\command{Write \opt{to "\parm{file}"};}
+redirects all output into the \parm{file}.
+The command \comm{EndW;} or \comm{End of Write;}
+closes the \parm{file} and restores standard output.
+
+The symbol {\tt >} can be used instead of {\tt to} in these commands.
+
+%\newpage
+
+The following commands print the line-element:
+\command{ds2;\\\tt
+Line-Element;}
+
+
+\subsection{\sf\slshape Expression Printing}
+
+The following commands evaluate expression \parm{expr}
+and print its value:
+\command{\opt{Print} \parm{expr} \opt{For \parm{iter}};\\\tt
+For \parm{iter} Print \parm{expr};}
+The parameter \parm{iter} determines that the \parm{expr}
+must be evaluated for several values of some variable.
+The \parm{iter} has the form:
+\command{\rpt{\parm{it}\,\opt{=\opt{\parm{lo}{\upshape..}}\parm{up}}}}
+The separator {\tt ,} can be replaced by one of the relational
+operators {\tt <\ \ >\ \ <=\ \ >=}. In general \parm{it} runs
+from \parm{lo} (or from 0 if \parm{lo} is omitted) to \parm{up}.
+If both \parm{lo} and \parm{up} are omitted then range of the
+symbol \parm{it} is determined by its form. For example:
+{\tt a p ijk} run from 0 to $d-1$ ($d$ is the dimension),
+{\tt a5 ij5} run from 0 to 5, {\tt a13 ij13} run from 1 to 3,
+{\tt A} runs from 0 to 1, {\tt AB} runs from 0 to 2,
+{\tt ABC} runs from 0 to 3 etc.
+
+
+\subsection{\sf\slshape Output Control}
+
+The following commands are identical to
+\command{Factor \rpt{\parm{expr}};\\\tt
+RemFac \rpt{\parm{expr}};\\\tt
+Order \rpt{\parm{expr}};}
+similar {\sc Reduce} commands.
+The command \comm{Line-Length \parm{n};} sets new output
+line width.
+
+
+\subsection{\sf\slshape Substitutions}
+
+The substitution commands are similar to corresponding
+{\sc Reduce} instructions
+\command{\opt{For All \rpt{\parm{x}}\,\opt{Such That \parm{cond}}} Let \rpt{\parm{sub}};\\\tt
+\opt{For All \rpt{\parm{x}}\,\opt{Such That \parm{cond}}} Match \rpt{\parm{sub}};\\\tt
+\opt{For All \rpt{\parm{x}}\,\opt{Such That \parm{cond}}} Clear \rpt{\parm{sub}}; }
+where \parm{sub} is either relation {\tt \parm{l}\,=\,\parm{r}} as in
+{\sc Reduce} or component of the solution {\tt Sol(\parm{n})}.
+
+
+\subsection{\sf\slshape Basis Mode Switching Commands}
+
+The command
+\command{Anholonomic;}
+switch \grg\ to the anholonomic basis mode and the command
+\command{Holonomic;}
+switches back to the default holonomic mode.
+
+
+\subsection{\sf\slshape Saving and Restoring the Data}
+
+The command
+\command{Unload \rpt{\parm{object}} to "\parm{file}";}
+saves the value of the \parm{object} into the \parm{file}.
+
+The command
+\command{Unload to "\parm{file}";}
+must be followed by the sequence of the commands
+\command{Unload \parm{object};}
+or comments. The sequence must be terminated
+by the command \comm{EndU;} or \comm{End of Unload;}.
+
+The symbol {\tt >} can be used instead of {\tt to}.
+
+The data saved by {\tt Unload} can be restored by the command
+\command{Load "\parm{file}";}
+
+The command
+\command{\opt{Show} File "\parm{file}";\\\tt Show "\parm{file}";}
+lists the objects saved into the \parm{file}.
+
+
+\subsection{\sf\slshape Algebraic Classification}
+
+The command
+\command{Classify \parm{object};}
+performs algebraic classification of the \parm{object}.
+\grg\ has built-in algorithms for the algebraic
+classification of the following irreducible spinors:
+$X_{A\dot{B}}$, $X_{AB}$, $X_{AB\dot{C}\dot{D}}$, $X_{ABCD}$.
+
+
+\subsection{\sf\slshape Coordinate Transformations}
+
+The coordinate transformation command:
+\longcommand{New Coordinates \rpt{\parm{new}} with \rpt{\parm{old}=\parm{expr}};}
+
+
+\subsection{\sf\slshape Frame Transformations}
+
+Frame rotation command
+\command{\opt{Make} Rotation \opt{\parm{matrix}};}
+The \parm{matrix} must be frame rotation, i.e. the metric must
+remain unchanged under the transformation. The \parm{matrix}
+has the following form
+\command{{\upshape (}\rpt{{\upshape (}\rpt{\parm{expr}}{\upshape )}}{\upshape )}}
+If \parm{matrix} is omitted then the rotation is taken from
+the object {\tt Frame Transformation}.
+
+The command
+\command{Change Metric \opt{\parm{matrix}};}
+is similar to the previous one but the \parm{matrix}
+is not necessary the rotation but any nonsingular matrix.
+
+The spinorial transformation command:
+\command{\opt{Make} Spinorial Rotation \opt{\parm{matrix}};}
+The \parm{matrix} must be SL(2,C) matrix.
+If the parameter \parm{matrix} is omitted
+then the matrix must be defined by the value of the
+object {\tt Spinorial Transformation}.
+
+The command
+\command{Hold \parm{object};}
+makes \grg\ to keep the \parm{object} unchanged under
+the frame transformation. The command
+\command{Release \parm{object};}
+removes the action of the {\tt Hold} command.
+
+
+\subsection{\sf\slshape Solving Equations}
+
+The algebraic equation solving command has two forms
+\command{Solve \parm{equation} for \rpt{\parm{x}};\\\tt
+Solve \rpt{\parm{l}=\parm{r}}\,\,for \rpt{\parm{x}};}
+where \parm{equation} is any built-in or user-defined
+equation. The solutions are stored into the special
+built-in object {\tt Solutions}.
+
+The command
+\command{\tt Inverse \parm{f},\,\parm{h};}
+declares the functions \parm{f} and \parm{h} to be inverse
+to each other.
+
+
+\subsection{\sf\slshape Loading Package}
+
+\command{\opt{Load} Package \parm{package};\\\tt
+Load \parm{package};}
+
+
+\section{\LARGE\sf\slshape Switches}\vspace*{-2mm}
+\chead{\slshape Commands and Switches}
+
+Switches in \grg\ are case insensitive.
+
+\tabcolsep=1.5mm
+
+\begin{tabular}{|c|c|l|}
+\hline
+\tt  AEVAL          & Off & Use aeval() instead of reval().          \\
+\tt  WRS            & On  & Re-simplify expr. before printing.     \\
+\tt  WMATR          & Off & Write 2-index objects in matrix form.   \\
+\tt  TORSION        & Off & Torsion.                                 \\
+\tt  NONMETR        & Off & Nonmetricity.                            \\
+\tt  UNLCORD        & On  & Save coordinates in {\tt Unload}.       \\
+\tt  AUTO           & On  & Automatic data calculation in expr.    \\
+\tt  TRACE          & On  & Trace the calculation process.          \\
+\tt  SHOWCOMMANDS   & Off & Show compound command expansion.       \\
+\tt  EXPANDSYM      & Off & Allow {\tt Sy Asy Cy}in expr.        \\
+\tt  DFPCOMMUTE     & On  & Commutativity of {\tt DFP}.              \\
+\tt  NONMIN         & Off & Nonmin. interaction for scalar field.    \\
+\tt  NOFREEVARS     & Off & Prohibit free variables in {\tt Print}. \\
+\tt  CCONST         & Off & Include cosm. constant in equations.    \\
+\tt  FULL           & Off & Number of components in {\tt Metric Eq}. \\
+\tt  LATEX          & Off &  \LaTeX\ output mode.                    \\
+\tt  GRG            & Off &  \grg\ output mode.                      \\
+\tt  REDUCE         & Off &  {\sc Reduce} output mode.               \\
+\tt  MAPLE          & Off &  {\sc Maple} output mode.                \\
+\tt  MATH           & Off &  {\sc Mathematica} output mode.          \\
+\tt  MACSYMA        & Off &  {\sc Macsyma} output mode.              \\
+\tt  DFINDEXED      & Off & Print {\tt DF} in index notation.       \\
+\tt  BATCH          & Off & Batch mode.                              \\
+\tt  HOLONOMIC      & On  & Keep frame holonomic.   \\
+\tt  SHOWEXPR       & Off & Print expressions during algebraic      \\
+\tt          	    &     & classification.                          \\
+\hline
+\end{tabular}
+
+\newpage
+
+
+
+\section{\LARGE\sf\slshape Synonymy}
+\chead{\slshape Synonymy}
+
+This is default \grg\ synonymy list.
+The symbols in each line are equivalent in all
+\grg\ commands and in the built-in object names.
+The case does not matter. So {\tt Affine} is
+equivalent to {\tt affine}, {\tt Aff}, {\tt aff}
+and so on.
+
+\begin{verbatim}
+   Affine Aff
+   Anholonomic Nonholonomic AMode ABasis
+   Antisymmetric Asy
+   Change Transform
+   Classify Class
+   Components Comp
+   Connection Con
+   Constants Const Constant
+   Coordinates Cord
+   Curvature Cur
+   Dimension Dim
+   Dotted Do
+   Equation Equations Eq
+   Erase Delete Del
+   Evaluate Eval Simplify
+   Find F Calculate Calc
+   Form Forms
+   Functions Fun Function
+   Generic Gen
+   Gravitational Gravity Gravitation Grav
+   Holonomic HMode HBasis
+   Inverse Inv
+   Load Restore
+   Next N
+   Normalize Normal
+   Object Obj
+   Output Out
+   Parameter Par
+   Rotation Rot
+   Scalar Scal
+   Show ?
+   Signature Sig
+   Solutions Solution Sol
+   Spinor Spin Spinorial Sp
+   standardlisp lisp
+   Switch Sw
+   Symmetries Sym Symmetric
+   Tensor Tensors Tens
+   Torsion Tors
+   Transformation Trans
+   Undotted Un
+   Unload Save
+   Vector Vec
+   Write W
+   Zero Nullify
+\end{verbatim}
+
+\newpage
+
+
+\section{\LARGE\sf\slshape Expressions}
+\chead{\slshape Expressions}
+
+\subsection{\sf\slshape Operations and Operators}
+
+Notation:
+$e$ is any expression,
+$a$ is any scalar valued (algebraic) expressions,
+$v$ is any vector valued expression,
+$x$ is a coordinate,
+$o$ is any 1-form valued expression,
+$\omega$ is any form valued expression.
+
+\begin{tabular}{|c|c|c|}
+\hline
+{\tt [$v_1$,$v_2$]} & Vector bracket          &                             \\
+\hline
+{\tt @} $x$         & Holonomic vector $\partial_x$ &                       \\
+\cline{1-2}
+{\tt d} $a$         & Exterior differential   &                             \\
+{\tt d} $\omega$    &                         &
+          {\tt d} \cc$a$ $\Leftrightarrow$ {\tt (d(}\cc$a${\tt))} \\
+\cline{1-2}
+{\tt \dd} $a$       & Dualization             &                             \\
+{\tt \dd} $\omega$  &                         &                             \\
+\cline{1-2}
+{\tt \cc} $e$       & Complex conjugation     &                             \\
+\hline
+$a_1${\tt **}$a_2$  & Exponention             &                             \\
+$a_1${\tt\^} $a_2$  &                         &                             \\
+\hline
+$e$\ {\tt /}\ $a$   & Division                &
+          $e${\tt /}$a_1${\tt /}$a_2$ $\Leftrightarrow$ {\tt (}$e${\tt /}$a_1${\tt )/}$a_2$  \\
+\hline
+$a$\ {\tt *}\ $e$   & Multiplication          &                                   \\
+\cline{1-2}
+$v$\ {\tt |}\ $a$   & Vector acting on scalar & $v$\ii$\omega_1$\w$\omega_2${\tt *}$a$ \\
+\cline{1-2}
+$v$\ \ip\ $\omega$  & Interior product        & $\Updownarrow$  \\
+\cline{1-2}
+$v_1$\ {\tt.}\ $v_2$& Scalar product          & $v$\ii{\tt (}$\omega_1$\w{\tt(}$\omega_2${\tt *}$a${\tt ))} \\
+$v$\ {\tt.}\ $o$    &                         &                             \\
+$o_1$\ {\tt.}\ $o_2$&                         &                             \\
+\cline{1-2}
+$\omega_1$\ \w\ $\omega_2$ & Exterior product &                             \\
+\hline
+{\tt +}\ $e$        & Prefix plus             &                             \\
+\cline{1-2}
+{\tt -}\ $e$        & Prefix minus            &                             \\
+\cline{1-2}
+$e_1$\ {\tt +}\ $e_2$ & Addition              &                             \\
+\cline{1-2}
+$e_1$\ {\tt -}\ $e_2$ & Subtraction           &                             \\
+\hline
+\end{tabular}
+
+
+\subsection{\sf\slshape Variables and Functions}
+
+Operator listed in the previous section can act on:
+(i) integer numbers (e.g. {\tt 0}, {\tt 123}),
+(ii) symbols or identifiers (e.g. {\tt I}, {\tt phi}, {\tt RIM0103}),
+(iii) functional expressions (e.g. {\tt SIN(x)}, {\tt G(0,1)} etc).
+
+Valid symbol must belong to one of the following types:
+\begin{itemize}
+\item Coordinate.
+\item Declared by user or built-in constant.
+\item Function declared with implicit dependence list.
+\item Component of an object.
+\end{itemize}
+
+Any valid functional expression must belong to one of the following types:
+\itemsep=0.5mm
+\begin{itemize}
+\item User-defined function.
+\item Function defined in {\sc Reduce} or in any loaded package.
+\item Component of an object in functional notation.
+\item Some special \grg\ functional expressions listed below.
+\end{itemize}
+
+
+\subsection{\sf\slshape Object Components}
+
+The components of built-in or user-defined object can be
+referred by two methods: using symbols {\tt dim},
+{\tt VOL}, {\tt T0}, {\tt RIM0213} etc, or using functional
+notation {\tt T(0)}, {\tt RIM(0,2,1,3)}, {\tt OMEGA(i,j)}.
+In functional notation the default index type and position
+can be changed using the markers: {\tt '} upper frame,
+{\tt .} lower frame, {\tt \^} upper holonomic, {\tt \_} lower
+holonomic. For example: {\tt RIM('0,.1,\_2,\_3)}.
+
+
+
+\subsection{\sf\slshape Built-in Constants}
+
+\begin{tabular}{|l|l|}
+\hline
+\tt  E I PI INFINITY     & Mathematical constants $e,i,\pi$,$\infty$    \\
+\hline
+\tt  FAILED              &                                             \\
+\hline
+\tt  ECONST              & Charge of the electron                      \\
+\tt  DMASS               & Dirac field mass                            \\
+\tt  SMASS               & Scalar field mass                           \\
+\hline
+\tt  GCONST              & Gravitational constant                      \\
+\tt  CCONST              & Cosmological constants                      \\
+\hline
+\tt  LC0 LC1 LC2 LC3     & Parameters of the quadratic                 \\
+\tt  LC4 LC5 LC6         & gravitational Lagrangian                    \\
+\tt  MC1 MC2 MC3         &                                             \\
+\hline
+\tt  AC0                 & Nonminimal interaction constant             \\
+\hline
+\end{tabular}
+
+
+\subsection{\sf\slshape Derivatives}\vspace*{-5mm}
+
+\command{DF(\parm{a},\rpt{\parm{x}\opt{{\upshape ,}\parm{n}}})\\\tt
+DFP(\parm{a},\rpt{\parm{x}\opt{{\upshape ,}\parm{n}}})}\vspace*{-1mm}
+
+{\tt DFP} derivatives are valid only after {\tt Generic Function}
+declaration.
+
+\subsection{\sf\slshape Complex Conjugation}
+
+These constructions are shortcuts for standard complex conjugation
+operations:
+\command{%
+\tt $e$ + \cc\cc\ $=$\ $e$ + \cc$e$ \\
+\tt $e$ - \cc\cc\ $=$\ $e$ - \cc$e$ \\
+\tt Re($e$)\ $=$\ ($e$ + \cc$e$)/2 \\
+\tt Im($e$)\ $=$\ I*(-$e$ + \cc$e$)/2}
+
+
+\subsection{\sf\slshape Parts of Equations and Solutions}
+
+The functional expressions
+\command{LHS(\parm{eqcomp})\\\tt
+RHS(\parm{eqcomp})}
+give access to the left-hand and right-hand side of an
+equation respectively. They also provide access to the \parm{n}'th
+solution if \parm{eqcomp} is \comm{Sol(\parm{n})}.
+
+
+\subsection{\sf\slshape Sums and Products}\vspace*{-5mm}
+
+\command{Sum(\parm{iter},\parm{e})\\\tt
+Prod(\parm{iter},\parm{e})}
+The \parm{iter} specification is
+completely the same as in the {\tt Print For} command.
+
+
+\subsection{\sf\slshape Lie Derivatives}
+
+The Lie derivative
+\command{Lie(\parm{v},\parm{objcomp})}
+where \parm{objcomp} is the component of an object in
+functional notation.
+
+
+\subsection{\sf\slshape Covariant Derivatives and Differentials}
+
+The covariant differential
+\command{Dc(\parm{objcomp}\opt{{\upshape\tt ,}\rpt{\parm{conn}}})}
+and covariant derivative
+\command{Dfc(\parm{v},\parm{objcomp}\opt{{\upshape\tt ,}\rpt{\parm{conn}}})}
+Here \parm{objcomp} is an object component in functional notation
+and \parm{conn} is the symbol(s) of alternative connection 1-form(s).
+
+
+\subsection{\sf\slshape Symmetrization}
+
+The functional expressions
+\command{%
+Asy(\rpt{\parm{i}},\parm{e})\\\tt
+Sy(\rpt{\parm{i}},\parm{e})\\\tt
+Cy(\rpt{\parm{i}},\parm{e})}
+produces antisymmetrization, symmetrization and cyclic symmetrization
+of the expression \parm{e} with respect to \parm{i} (without
+corresponding $1/n$ or $1/n!$ etc). The switch {\tt EXPANDSYM} must
+be on.
+
+\subsection{\sf\slshape Substitutions}
+
+The expression
+\command{SUB(\rpt{\parm{sub}},\parm{e})}
+is similar to the analogous {\sc Reduce} one with two
+generalizations: (i) it applies not only to algebraic
+but to form and vector valued expression \parm{e} as well,
+(ii) as in {\tt Let} command \parm{sub} can be either
+the relation {\tt \parm{l}\,=\,\parm{r}} or solution
+{\tt Sub(\parm{n})}.
+
+
+\subsection{\sf\slshape Conditional Expressions}
+
+The conditional expression
+\command{If(\parm{cond},\parm{$e_1$},\parm{$e_2$})}
+chooses $e_1$ or $e_2$ depending on the value of the
+boolean expression \parm{cond}.
+
+Boolean expression appears in (i) the conditional expression
+{\tt If}, (ii) in {\tt For all Such That} substitutions.
+Any nonzero expression is considered as {\bf true} and
+vanishing expression as {\bf false}. Boolean expressions
+may contain the following usual relations and logical
+operations: {\tt < > <= >= = |= not and or}. They also may
+contain the predicates
+
+\begin{tabular}{|l|l|}
+\hline
+\tt OBJECT(\parm{obj}) & Is \parm{obj} an object or not          \\
+\hline
+\tt ON(\parm{switch})      & Test position of the \parm{switch}      \\
+\tt OFF(\parm{switch})    &                                            \\
+\hline
+\tt ZERO(\parm{object})    & Is the value of the \parm{object} zero or not \\
+\hline
+\tt HASVALUE(\parm{object}) & Whether the \parm{object} has any value or not \\
+\hline
+\tt NULLM(\parm{object}) & Is the \parm{object} the standard null metric \\
+\hline
+\end{tabular}
+
+The expression \comm{ERROR("\parm{message}")} causes an error
+with the \comm{"\parm{message}"}. It can be used together with
+conditional expressions to test any required conditions during
+the batch file execution.
+
+
+
+\newpage
+
+\section{\LARGE\sf\slshape Macro Objects}
+\chead{\slshape Objects}
+
+Macro objects can be used in expression, in {\tt Write} and
+{\tt Show} commands but not in {\tt Find}. The indices are
+specified as in the {\tt New Object} declaration.
+
+\subsection{\sf\slshape Dimension and Signature}
+
+\begin{tabular}{|l|l|}
+\hline
+\tt  dim       &  Dimension $d$ \\
+\hline
+\tt  sdiag.idim & {\tt sdiag(\parm{n})} is the $n$'th element of the \\
+                &  signature diag($-1,+1$\dots) \\
+\hline
+\tt  sign      &  Product of the signature specification \\
+\tt  sgnt      &  elements $\prod_{n=0}^{d-1}\mbox{\tt sdiag(}n\mbox{\tt)}$ \\[1mm]
+\hline
+\tt  mpsgn     &  {\tt sdiag(0)}  \\
+\tt  pmsgn     &  {\tt -sdiag(0)}   \\
+\hline
+\end{tabular}
+
+\subsection{\sf\slshape Metric and Frame}
+
+\begin{tabular}{|l|l|}
+\hline
+\tt  x\^m        &  $m$'th coordinate                   \\
+\tt  X\^m        &                     \\
+\hline
+\tt  h'a\_m    &  Frame coefficients         \\
+\tt  hi.a\^m   &                    \\
+\hline
+\tt  g\_m\_n    & Holonomic metric      \\
+\tt  gi\^m\^n   &                   \\
+\hline
+\end{tabular}
+
+\subsection{\sf\slshape Delta and Epsilon Symbols}
+
+\begin{tabular}{|l|l|}
+\hline
+\tt  del'a.b       &  Delta symbols   \\
+\tt  delh\^m\_n    &                  \\
+\hline
+\tt  eps.a.b.c.d   &  Totally antisymmetric symbols \\
+\tt  epsi'a'b'c'd  &  (number of indices depend on $d$)  \\
+\tt  epsh\_m\_n\_p\_q  &                     \\
+\tt  epsih\^m\^n\^p\^q &                     \\
+\hline
+\end{tabular}
+
+\subsection{\sf\slshape Spinors}
+
+\begin{tabular}{|l|l|}
+\hline
+\tt  DEL'A.B      & Delta symbol          \\
+\hline
+\tt  EPS.A.B      & Spinorial metric      \\
+\tt  EPSI'A'B     &                       \\
+\hline
+\tt  sigma'a.A.B\cc   & Sigma matrices      \\
+\tt  sigmai.a'A'B\cc  &                    \\
+\hline
+\tt  cci.i3    & Frame index conjugation in st. null frame \\
+	       & {\tt cci(0)=0}\ {\tt cci(1)=1}\ {\tt cci(2)=3}\ {\tt cci(3)=2} \\
+\hline
+\end{tabular}
+
+\subsection{\sf\slshape Connection Coefficients}
+
+\begin{tabular}{|l|l|}
+\hline
+\tt  CHR\^m\_n\_p  &  Christoffel symbols $\{{}^\mu_{\nu\pi}\}$ \\
+\tt  CHRF\_m\_n\_p &  and $[{}_{\mu},_{\nu\pi}]$  \\
+\tt  CHRT\_m       &  Christoffel symbol trace $\{{}^\pi_{\pi\mu}\}$  \\
+\hline
+\tt  SPCOEF.AB.c     & Spin coefficients $\omega_{AB\,c}$  \\
+\hline
+\end{tabular}
+
+\subsection{\sf\slshape NP Formalism}
+
+\begin{tabular}{|l|c|}
+\hline
+\tt  PHINP.AB.CD~ &  $\Phi_{AB\dot{C}\dot{D}}$  \\
+\tt  PSINP.ABCD   &  $\Psi_{ABCD}$              \\
+\hline
+\tt  alphanp      & $\alpha$ \\
+\tt  betanp       & $\beta$ \\
+\tt  gammanp      & $\gamma$ \\
+\tt  epsilonnp    & $\epsilon$ \\
+\tt  kappanp      & $\kappa$ \\
+\tt  rhonp        & $\rho$ \\
+\tt  sigmanp      & $\sigma$ \\
+\tt  taunp        & $\tau$ \\
+\tt  munp         & $\mu$ \\
+\tt  nunp         & $\nu$ \\
+\tt  lambdanp     & $\lambda$ \\
+\tt  pinp         & $\pi$ \\
+\hline
+\tt  DD           & $D$ \\
+\tt  DT           & $\Delta$ \\
+\tt  du           & $\delta$ \\
+\tt  dd           & $\overline\delta$ \\
+\hline
+\end{tabular}
+
+
+
+\section{\LARGE\sf\slshape Built-in Objects}
+
+\tabcolsep=1mm
+
+The complete list of built-in objects with names and symbols.
+The case of the object names is not important but symbols
+are case sensitive. The indices are specified as in the
+{\tt New Object} declaration. Some names refer to a set
+of objects. For example the name {\tt Spinorial S - forms}
+denotes {\tt SU.AB} and {\tt SD.AB~}.
+
+\subsection{\sf\slshape  Metric, Frame, Basis, Volume \dots}
+\begin{tabular}{|l|l|}\hline
+\tt    Frame                   &\tt   T'a\\
+\tt    Vector Frame            &\tt   D.a\\
+\hline
+\tt    Metric                  &\tt   G.a.b\\
+\tt    Inverse Metric          &\tt   GI'a'b\\
+\tt    Det of Metric           &\tt   detG\\
+\tt    Det of Holonomic Metric &\tt   detg\\
+\tt    Sqrt Det of Metric      &\tt   sdetG\\
+\hline
+\tt    Volume                  &\tt   VOL\\
+\hline
+\tt    Basis                   &\tt   b'idim \\
+\tt    Vector Basis            &\tt   e.idim \\
+\hline
+\tt    S-forms                 &\tt   S'a'b\\
+\hline
+\multicolumn{2}{|c|}{\tt Spinorial S-forms} \\
+\tt    Undotted S-forms   &\tt    SU.AB\\
+\tt    Dotted S-forms     &\tt    SD.AB\cc\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Rotation Matrices}
+\begin{tabular}{|l|l|}\hline
+\tt    Frame Transformation      &\tt   L'a.b \\
+\tt    Spinorial Transformation  &\tt   LS.A'B \\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Connection and related objects}
+\begin{tabular}{|l|l|}\hline
+\tt    Frame Connection     &\tt   omega'a.b\\
+\tt    Holonomic Connection &\tt   GAMMA\^m\_n\\
+\hline
+\multicolumn{2}{|c|}{\tt Spinorial Connection}\\
+\tt    Undotted Connection  &\tt   omegau.AB\\
+\tt    Dotted Connection    &\tt   omegad.AB\cc\\
+\hline
+\tt    Riemann Frame Connection     &\tt   romega'a.b\\
+\tt    Riemann Holonomic Connection &\tt   RGAMMA\^m\_n\\
+\hline
+\multicolumn{2}{|c|}{\tt Riemann Spinorial Connection}\\
+\tt    Riemann Undotted Connection  &\tt   romegau.AB\\
+\tt    Riemann Dotted Connection    &\tt   romegad.AB\cc\\
+\hline
+\tt    Connection Defect  &\tt    K'a.b\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Torsion}
+\begin{tabular}{|l|l|}\hline
+\tt    Torsion    &\tt  THETA'a\\
+\tt    Contorsion &\tt  KQ'a.b\\
+\tt    Torsion Trace 1-form         &\tt   QQ\\
+\tt    Antisymmetric Torsion 3-form &\tt  QQA\\
+\hline
+\multicolumn{2}{|c|}{\tt Spinorial Contorsion}\\
+\tt    Undotted Contorsion   &\tt  KU.AB\\
+\tt    Dotted Contorsion     &\tt  KD.AB\cc\\
+\hline
+\multicolumn{2}{|c|}{\tt    Torsion Spinors    }\\
+\multicolumn{2}{|c|}{\tt    Torsion Components }\\
+\tt    Torsion Trace               &\tt    QT'a\\
+\tt    Torsion Pseudo Trace        &\tt    QP'a\\
+\tt    Traceless Torsion Spinor    &\tt    QC.ABC.D\cc\\
+\hline
+\multicolumn{2}{|c|}{\tt    Torsion 2-forms}\\
+\tt    Traceless Torsion 2-form     &\tt   THQC'a\\
+\tt    Torsion Trace 2-form         &\tt   THQT'a\\
+\tt    Antisymmetric Torsion 2-form &\tt   THQA'a\\
+\hline
+\multicolumn{2}{|c|}{\tt    Undotted Torsion 2-forms}\\
+\tt    Undotted Torsion Trace 2-form         &\tt   THQTU'a\\
+\tt    Undotted Antisymmetric Torsion 2-form &\tt   THQAU'a\\
+\tt    Undotted Traceless Torsion 2-form     &\tt   THQCU'a\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Nonmetricity}
+\begin{tabular}{|l|l|}\hline
+\tt    Nonmetricity        &\tt   N.a.b\\
+\tt    Nonmetricity Defect &\tt   KN'a.b\\
+\tt    Weyl Vector         &\tt   NNW\\
+\tt    Nonmetricity Trace  &\tt   NNT\\
+\hline
+\multicolumn{2}{|c|}{\tt    Nonmetricity 1-forms}\\
+\tt    Symmetric Nonmetricity 1-form     &\tt   NC.a.b\\
+\tt    Antisymmetric Nonmetricity 1-form &\tt   NA.a.b\\
+\tt    Nonmetricity Trace  1-form        &\tt   NT.a.b\\
+\tt    Weyl Nonmetricity 1-form          &\tt   NW.a.b\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Curvature}
+\begin{tabular}{|l|l|}\hline
+\tt    Curvature           &\tt   OMEGA'a.b\\
+\hline
+\multicolumn{2}{|c|}{\tt    Spinorial Curvature}\\
+\tt    Undotted Curvature  &\tt   OMEGAU.AB\\
+\tt    Dotted Curvature    &\tt   OMEGAD.AB\cc\\
+\hline
+\tt    Riemann Tensor      &\tt   RIM'a.b.c.d\\
+\tt    Ricci Tensor        &\tt   RIC.a.b\\
+\tt    A-Ricci Tensor      &\tt   RICA.a.b\\
+\tt    S-Ricci Tensor      &\tt   RICS.a.b\\
+\tt    Homothetic Curvature &\tt  OMEGAH\\
+\tt    Einstein Tensor      &\tt  GT.a.b\\
+\hline
+\multicolumn{2}{|c|}{\tt    Curvature Spinors}\\
+\multicolumn{2}{|c|}{\tt    Curvature Components}\\
+\tt    Weyl Spinor                &\tt  RW.ABCD\\
+\tt    Traceless Ricci Spinor     &\tt  RC.AB.CD\cc\\
+\tt    Scalar Curvature           &\tt  RR\\
+\tt    Ricanti Spinor             &\tt  RA.AB\\
+\tt    Traceless Deviation Spinor &\tt  RB.AB.CD\cc\\
+\tt    Scalar Deviation           &\tt  RD\\
+\hline
+\multicolumn{2}{|c|}{\tt Undotted Curvature 2-forms}\\
+\tt    Undotted Weyl 2-form                &\tt  OMWU.AB \\
+\tt    Undotted Traceless Ricci 2-form     &\tt  OMCU.AB \\
+\tt    Undotted Scalar Curvature 2-form    &\tt  OMRU.AB \\
+\tt    Undotted Ricanti 2-form             &\tt  OMAU.AB \\
+\tt    Undotted Traceless Deviation 2-form &\tt  OMBU.AB \\
+\tt    Undotted Scalar Deviation 2-form    &\tt  OMDU.AB \\
+\hline
+\multicolumn{2}{|c|}{\tt  Curvature 2-forms}\\
+\tt    Weyl 2-form                     &\tt    OMW.a.b \\
+\tt    Traceless Ricci 2-form          &\tt    OMC.a.b \\
+\tt    Scalar Curvature 2-form         &\tt    OMR.a.b \\
+\tt    Ricanti 2-form                  &\tt    OMA.a.b \\
+\tt    Traceless Deviation 2-form      &\tt    OMB.a.b \\
+\tt    Antisymmetric Curvature 2-form  &\tt    OMD.a.b \\
+\tt    Homothetic Curvature 2-form     &\tt    OSH.a.b \\
+\tt    Antisymmetric S-Ricci 2-form    &\tt  OSA.a.b  \\
+\tt    Traceless S-Ricci 2-form        &\tt  OSC.a.b  \\
+\tt    Antisymmetric S-Curvature 2-form &\tt  OSV.a.b  \\
+\tt    Symmetric S-Curvature 2-form     &\tt  OSU.a.b  \\
+\hline
+\end{tabular}
+
+
+\subsection{\sf\slshape  EM field}
+\begin{tabular}{|l|l|}\hline
+\tt    EM Potential    &\tt    A\\
+\tt    Current 1-form  &\tt    J\\
+\tt    EM Action       &\tt    EMACT\\
+\tt    EM 2-form       &\tt    FF\\
+\tt    EM Tensor       &\tt    FT.a.b\\
+\hline
+\multicolumn{2}{|c|}{\tt    Maxwell Equations}\\
+\tt    First Maxwell Equation    &\tt    MWFq\\
+\tt    Second Maxwell Equation   &\tt    MWSq\\
+\hline
+\tt    Continuity Equation       &\tt  COq\\
+\tt    EM Energy-Momentum Tensor &\tt  TEM.a.b\\
+\hline
+\multicolumn{2}{|c|}{\tt    EM Scalars}\\
+\tt    First EM Scalar         &\tt      SCF\\
+\tt    Second EM Scalar        &\tt      SCS\\
+\hline
+\tt    Selfduality Equation    &\tt    SDq.AB\cc\\
+\tt    Complex EM 2-form        &\tt   FFU\\
+\tt    Complex Maxwell Equation &\tt   MWUq\\
+\tt    Undotted EM Spinor       &\tt   FIU.AB\\
+\tt    Complex EM Scalar        &\tt   SCU\\
+\tt    EM Energy-Momentum Spinor &\tt  TEMS.AB.CD\cc\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Scalar field}
+\begin{tabular}{|l|l|}\hline
+\tt    Scalar Equation       &\tt  SCq\\
+\tt    Scalar Field          &\tt  FI\\
+\tt    Scalar Action         &\tt  SACT\\
+\tt    Minimal Scalar Action &\tt  SACTMIN\\
+\tt    Minimal Scalar Energy-Momentum Tensor &\tt  TSCLMIN.a.b\\
+\hline\end{tabular}
+
+
+\subsection{\sf\slshape YM field}
+\begin{tabular}{|l|l|}\hline
+\tt    YM Potential         &\tt  AYM.i9\\
+\tt    Structural Constants &\tt  SCONST.i9.j9.k9\\
+\tt    YM Action            &\tt  YMACT\\
+\tt    YM 2-form          &\tt  FFYM.i9\\
+\tt    YM Tensor          &\tt   FTYM.i9.a.b\\
+\hline
+\multicolumn{2}{|c|}{\tt    YM Equations}\\
+\tt    First YM Equation  &\tt   YMFq.i9\\
+\tt    Second YM Equation &\tt   YMSq.i9\\
+\hline
+\tt    YM Energy-Momentum Tensor &\tt  TYM.a.b\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Dirac field}
+\begin{tabular}{|l|l|}\hline
+\multicolumn{2}{|c|}{\tt    Dirac Spinor}\\
+\tt    Phi Spinor   &\tt   PHI.A\\
+\tt    Chi Spinor   &\tt   CHI.B\\
+\hline
+\tt    Dirac Action 4-form &\tt  DACT\\
+\tt    Undotted Dirac Spin 3-Form &\tt  SPDIU.AB\\
+\tt    Dirac Energy-Momentum Tensor &\tt  TDI.a.b\\
+\hline
+\multicolumn{2}{|c|}{\tt    Dirac Equation}\\
+\tt    Phi Dirac Equation  &\tt   DPq.A\cc\\
+\tt    Chi Dirac Equation  &\tt   DCq.A\cc\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Geodesics}
+\begin{tabular}{|l|l|}\hline
+\tt    Geodesic Equation  &\tt   GEOq\^m\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Null Congruence}
+\begin{tabular}{|l|l|}\hline
+\tt    Congruence                    &\tt  KV\\
+\tt    Null Congruence Condition     &\tt  NCo\\
+\tt    Geodesics Congruence Condition&\tt  GCo'a\\
+\hline
+\multicolumn{2}{|c|}{\tt    Optical Scalars}\\
+\tt    Congruence Expansion          &\tt  thetaO\\
+\tt    Congruence Squared Rotation   &\tt  omegaSQO\\
+\tt    Congruence Squared Shear      &\tt  sigmaSQO\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Kinematics}
+\begin{tabular}{|l|l|}\hline
+\tt    Velocity Vector  &\tt   UV\\
+\tt    Velocity         &\tt   UU'a\\
+\tt    Velocity Square  &\tt   USQ\\
+\tt    Projector        &\tt   PR'a.b\\
+\hline
+\multicolumn{2}{|c|}{\tt    Kinematics}\\
+\tt    Acceleration     &\tt   accU'a\\
+\tt    Vorticity        &\tt   omegaU.a.b\\
+\tt    Volume Expansion &\tt   thetaU\\
+\tt    Shear            &\tt   sigmaU.a.b\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Ideal and Spin Fluid}
+\begin{tabular}{|l|l|}\hline
+\tt    Pressure                           &\tt  PRES\\
+\tt    Energy Density                     &\tt  ENER\\
+\tt    Ideal Fluid Energy-Momentum Tensor &\tt  TIFL.a.b\\
+\hline
+\tt    Spin Fluid Energy-Momentum Tensor &\tt  TSFL.a.b \\
+\tt    Spin Density                      &\tt  SPFLT.a.b \\
+\tt    Spin Density 2-form               &\tt  SPFL \\
+\tt    Undotted Fluid Spin 3-form        &\tt  SPFLU.AB \\
+\tt    Frenkel Condition                 &\tt  FCo \\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Total Energy-Momentum and Spin}
+\begin{tabular}{|l|l|}\hline
+\tt    Total Energy-Momentum Tensor &\tt   TENMOM.a.b\\
+\tt    Total Energy-Momentum Spinor &\tt   TENMOMS.AB.CD\cc\\
+\tt    Total Energy-Momentum Trace  &\tt   TENMOMT\\
+\tt    Total Undotted Spin 3-form   &\tt   SPINU.AB\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Einstein Equations}
+\begin{tabular}{|l|l|}\hline
+\tt    Einstein Equation           &\tt   EEq.a.b\\
+\hline
+\multicolumn{2}{|c|}{\tt    Spinor Einstein Equations}\\
+\tt    Traceless Einstein Equation &\tt   CEEq.AB.CD\cc\\
+\tt    Trace of Einstein Equation  &\tt   TEEq\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape Constants}
+\begin{tabular}{|l|l|}\hline
+\tt    A-Constants &\tt   ACONST.i2\\
+\tt    L-Constants &\tt   LCONST.i6\\
+\tt    M-Constants &\tt   MCONST.i3\\
+\hline\end{tabular}
+
+\subsection{\sf\slshape  Gravitational Equations}
+\begin{tabular}{|l|l|}\hline
+\tt    Action                      &\tt  LACT\\
+\tt    Undotted Curvature Momentum &\tt  POMEGAU.AB\\
+\tt    Torsion Momentum            &\tt  PTHETA'a\\
+\hline
+\multicolumn{2}{|c|}{\tt    Gravitational Equations}\\
+\tt    Metric Equation             &\tt  METRq.a.b\\
+\tt    Torsion Equation            &\tt  TORSq.AB\\
+\hline\end{tabular}
+
+\end{document}
+
+%========  End of guide32.tex  ============================================%
+

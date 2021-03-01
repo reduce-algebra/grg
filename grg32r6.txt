@@ -1,0 +1,378 @@
+
+   This is GRG 3.2  Copyright (C) 1997-2000  Vadim V. Zhytnikov
+
+   The system with source code and documentation is distributed
+   in the hope that it will be useful but without any warranty.
+   You may modify it for personal use, but you are not allowed
+   to remove author's name and/or to distribute modified files.
+
+GRG 3.2 is available by anonymous ftp download at
+   ftp://ftp.maths.qmw.ac.uk
+in the directory  /pub/grg3.2
+
+GRG 3.2 is free of charge but any contribution is highly appreciated.
+I work on GRG in my spare time and if you like the program you can help
+the development and support of new versions. Please, acknowledge use
+of GRG in publications.
+
+The address for correspondence:
+
+   Vadim V. Zhytnikov
+   Physics Department, Faculty of Mathematics,
+   Moscow State Pedagogical University,
+   Davydovskii per. 4, Moscow 107140, Russia
+   Tel(home): (095) 188-16-11
+   E-mail: vvzhy@mail.ru
+           vvzhy@td.lpi.ac.ru
+
+
+1. INTRODUCTION
+---------------
+
+GRG 3.2 is the computer algebra program designed for the problems
+in the differential geometry, gravitation and field theory.
+
+GRG 3.2 is based on the computer algebra system REDUCE and works
+with REDUCE versions 3.3, 3.4, 3.4.1, 3.5, 3.6 and 3.7.
+
+
+2. SYSTEM REQUIREMENTS
+----------------------
+
+Both GRG and REDUCE are written in LISP. There are several versions
+of REDUCE which use different LISP dialects. At present GRG works
+with REDUCE based on PSL (Portable Standard Lisp distributed by
+Konrad-Zuse-Zentrum (ZIB) <http://www.zib.de/Symbolik/reduce/>) and
+CSL (Codemist Standard Lisp distributed by Codemist Ltd.
+<http://www.codemist.tc>). In practice you should not worry about
+these details since GRG compilation script automatically determines
+current LISP dialect. Some little details depending on the particular
+REDUCE version which will be explained below.
+
+GRG is distributed as the source code and in order to install it
+one must compile the program. Usually REDUCE is equipped with the
+compiler except so called "personal" REDUCE. To install GRG on the
+system which has no compiler it is necessary to find the full REDUCE
+installed on similar platform, compile GRG on this machine and then
+copy the resulting fasl files (grg*.b or grg*.fsl, see below) on
+your computer. GRG compilation script automatically determines
+presence whether the compiler is installed on your system or not.
+
+
+3. THE DISTRIBUTIVE FILE CONTENTS
+---------------------------------
+
+GRG 3.2 distributive includes the following files:
+
+   readme.txt    - this file
+   new-in32.txt  - the note describing new features of GRG 3.2
+                   compared to  GRG 3.1. Can be useful for user
+                   who is familiar with GRG 3.1
+   compare.txt   - please read this file if you wonder
+                   Why should I use GRG if I have excalc?
+   timing.txt    - statistics on the performance of REDUCE
+                   and GRG on various platforms
+
+   guide32.tex   - documentation
+   grg32.tex
+
+   compile.grg   - GRG compilation script and relevant files
+   compile.csl
+   expand.csl
+   expand.psl
+   compile.psl
+   xcompile.psl
+
+   grg.sl        - GRG source code
+   grg32.sl
+   grgcfg.sl
+   grgclass.sl
+   grgcomm.sl
+   grgcomp.sl
+   grgcoper.sl
+   grgdecl.sl
+   grggeom.sl
+   grggrav.sl
+   grginit.sl
+   grgmacro.sl
+   grgmain.sl
+   grgmater.sl
+   grgprin.sl
+   grgproc.sl
+   grgtrans.sl
+   grgxcomp.sl
+   grgxmacr.sl
+
+   grg.cfg       - GRG local configuration file
+
+   bondi.low     - GRG tests
+   bondi.up
+   pgt.low
+   pgt.up
+
+   test.red      - Script which determines the background LISP version
+   grg2tex.red   - REDUCE program which converts GRG output into LaTeX
+
+Notice that the GRG distributive is completely the same for
+all operational systems: various UNIX dialects, VAX/VMS, DOS,
+MS Windows etc. One should take into account only that different
+operational system have different text file formats.
+Thus the DOS distributive may include the programs:
+   dtou.exe  utod.exe  addz.exe  cutz.exe
+The utod.exe converts UNIX text file into DOS text file format and
+dtou.exe makes inverse transformation. The programs addz.exe and
+cutz.exe add and cut ^Z at the very end of the text file (see below).
+
+
+4. IMPORTANT NOTE FOR IBM-PC REDUCE 3.3 and maybe 3.4 !
+-------------------------------------------------------
+
+The PSL-based REDUCE 3.3 (possibly 3.4 too) for DOS has rather
+nasty bug. If such REDUCE 3.3 reads the text file which has no
+trailing ^Z (hexadecimal code 1A which is optionally used as
+the end-of-file marker for DOS text files) and reaches the end
+of the file then DOS hangs and it is necessary to reboot the
+computer. This is not so important to REDUCE itself since REDUCE
+input files are usually terminated by the `soft' end-of-file command
+`end;' (if both end; and ^Z are missing the REDUCE hangs too).
+The same relates to the GRG input files: they must be ended either
+by the GRG `soft' end-of-file $ or by ^Z.  If GRG is compiled
+under the DOS REDUCE 3.3 all GRG source files grg*.sl (see above)
+must have trailing ^Z. The ^Z code can be added with the help of
+the addz.exe program:
+   addz *.sl
+The program cutz.exe removes the trailing ^Z.
+
+The ^Z problem is fixed in REDUCE 3.5 and (I hope)
+in later PSL versions.
+
+
+5. GRG COMPILATION
+------------------
+
+Step 1:
+
+  Create a new directory and copy the files:
+    grg*.sl (19 files)
+    compile.grg
+    compile.psl
+    compile.csl
+    expand.csl
+  into this directory. Usually GRG is distributed in packed
+  form, so it suffices to unpack the distributive in this
+  directory.
+
+Step 2: This step is required only for PSL REDUCE 3.3 (and 3.4 ?)
+        under DOS, MS Windows and possibly OS/2.
+
+   Copy addz.exe program into the directory and type the
+   command (see above for explanations):
+      addz *.sl
+
+Step 3:
+
+   To compile GRG start REDUCE and type the command:
+      in "compile.grg";
+   Compilation usually takes several minutes. Please watch error
+   messages. The compilation will create 15 files grg*.b (PSL)
+   or grg*.fsl (CSL). Usually *.fsl files are automatically stored
+   into appropriate system directory (recent CSL versions do not
+   create *.fsl files but automatically store them into single
+   REDUCE image file). PSL based REDUCE creates grg*.b files
+   in current directory. You can move them into your working directory
+   or into REDUCE fasl directory. The second option is preferable
+   since in this case GRG can be started from any place and will be
+   accessible for any user.  Notice that under UNIX the REDUCE fasl
+   directory is usually write protected for ordinary users and this
+   step may require the interference of system administrator.
+   The REDUCE fasl directory is located at $reduce/fasl (UNIX) or
+   $reduce\fasl (DOS) where $reduce stands for the REDUCE root
+   directory.
+
+Step 4:
+
+   You can remove the unnecessary source files:
+     grg*.sl  *.csl  *.psl  compile.grg
+
+
+6. RUNNING GRG
+--------------
+
+Now to run GRG it is necessary to start REDUCE and type
+the command (depending on the REDUCE version):
+  load grg;
+or
+  load_package grg;
+or
+  load!_package grg;
+GRG will respond with something like this
+-----------------------------------------------------------------
+This is GRG 3.2 release 2 (Feb 9, 1997) ...
+
+System variables are upper-cased: E I PI SIN ...
+Dimension is 4 with Signature (-,+,+,+)
+
+<-
+-----------------------------------------------------------------
+The symbol <- is the prompt which means that GRG waits for your
+commands. Pay attention to the message
+  System variables are upper-cased: E I PI SIN ...
+The point is that REDUCE is case insensitive which means
+that x-X is evaluated as zero while in GRG x and X are different.
+So any variable or function declared in GRG (Unlike REDUCE all
+variables and functions in GRG must be declared) must be later
+used exactly as they indicated in declaration. But mathematical
+constants and functions which are defined by REDUCE must
+be used in Upper or Lower case depending on the current REDUCE
+version. So in the example above they must be typed in upper-case:
+E, I, PI etc. But if the message reads
+  System variables are lower-cased: e i pi sin ...
+then use e, i, pi etc instead.
+
+The GRG session is terminated by the command
+  quit;
+
+Usually command
+  load grg;
+loads GRG program into memory and automatically starts it.
+On some systems (recent CSL versions) it makes some troubles
+which are manifested by the following symptoms:
+(1) wrong timing during computations,
+(2) command quit; terminates GRG session instead of terminating
+whole REDUCE program.
+
+In such situation one must start GRG manually using
+two commands instead of one
+  load grg32;
+  grg;
+Here the first command loads GRG into memory and second one
+starts it. One can also recompile GRG to make `load grg;' behave
+as `load grg32;' (see Section 8 below). After this you can start
+GRG by the commands
+  load grg;
+  grg;
+
+
+7. TESTING GRG
+--------------
+
+After installation it is good idea to run a test.  The GRG
+distributive include the test which calculates the irreducible
+curvature spinors for the Bondi metric. To run this test start
+GRG and type the command
+  "bondi.up";
+or
+  "bondi.low";
+depending on the upper or lower case of the built-in constants
+as explained above. The output of this test is automatically
+stored into the file bondi.out. There is also another test
+pgt.up/pgt.low which is far more complicated. See the file
+timing.txt to compare performance of your system with other
+platforms.
+
+
+8. CONFIGURING GRG
+------------------
+
+The beginners may skip this section.
+
+GRG has two configuration files grgcfg.sl and grg.cgf which allow
+one to change some initial settings. The first configuration file
+grgcfg.sl is used during the GRG compilation. You may to edit this
+file before compiling GRG and in this case the corresponding settings
+will be activated whenever GRG is started (global settings).  Other
+configuration file grg.cfg is optional. If necessary you can place
+it into working directory to override the global settings locally.
+
+The structure of both configuration files is the same. They can
+include the following commands:
+
+(1) The default signature is established by the command
+      (signature!> - + + +)
+    which also determines the default dimensionality.
+    Do not forget the spaces between + and - ! And newer
+    remove this command from the global configuration
+    file grgcfg.sl.
+
+(2) The commands on!> and off!> determines the initial
+    position of switches. For example the commands
+      (on!> torsion)
+      (off!> allfac)
+    turn the switch TORSION on and the switch ALLFAC off.
+
+(3) The command package!> loads any REDUCE package. For example
+       (package!> specfn)
+     loads the special functions package specfn.
+
+(4) The command
+      (synonymous!>
+	(coordinates cord)
+	(constants constant const)
+	...
+      )
+    defines the words will be considered as synonyms in
+    the GRG commands and object names (the synonymy is
+    intended for making the input shorter).
+
+(5) The only option which is valid only in the global
+    configuration file grgcfg.sl is
+      (setq ![autostart!] nil)
+    By default GRG is started by the single REDUCE command
+    `load grg;'. This option alters default behaviour and
+    one must start GRG using two commands `load grg; grg;'.
+    This is preferable way on some systems (recent CSL versions,
+    see Section 6 above).
+
+Finally you can change the default output line-length which can
+be useful in the variable-size windows environments like X-Windows.
+For example, to set the output line-length to 100 include the line
+   (linelength 100)
+to your configuration file.
+
+Be careful with editing the configuration file. If you make some
+mistake in them GRG probably will not start at all. The good idea is
+to save original configuration files to be able to restore initial
+state.
+
+Notice also that lines in grg.cfg and grggfg.sl beginning with % are
+the comments and are ignored by the system.
+
+
+9. GRG ENVIRONMENT VARIABLE
+--------------------------
+
+The environment variable grg defines the GRG System Directory.
+To set it use the command
+   set grg=c:\xxx\yyy               in DOS
+   setenv grg /xxx/yyy              in UNIX with csh
+   grg=/xxx/yyy                     in UNIX with sh
+   define grg sys$user:[xxx.yyy]    in VAX/VMS
+When asked to input some file GRG looks for it in the current
+directory and if the file is absent GRG tries to input it from
+the system directory. Thus this directory can be used as the
+storage for oftenly used files.
+
+10. DOCUMENTATION
+-----------------
+
+The documentation is typeset in LaTeX 2e. The file guide32.tex
+is short reference guide while grg32.tex is the detailed manual.
+To print the manual use the following procedure
+
+   latex grg32
+   latex grg32
+   latex grg32
+   makeindex grg32
+   latex grg32
+
+
+11. ACKNOWLEDGMENTS
+-------------------
+
+I would like to express my sincere gratitude to S.I.Tertychniy
+who initiated the GRG project. I also want to thank I.G.Obukhova,
+Yu.N.Obukhov, V.P.Gerdt, and A.Raportirenko. I am grateful to
+R.L.Agacy, M.A.H.MacCallum< J.M.Nester, and De-Ching Chern
+for support.
+
+----------------------------------------------------------------

@@ -1,0 +1,71 @@
+% Exact soluition of the Poincare Gauge Theory
+  with the Kerr-Newman in De Sitter metric;
+
+Zero Time;
+Coordinates  t,r,th,ph;
+Constants  m,j,q,L;
+Find Metric;
+Functions f(th),Si(r,th),De(r),J(th),Q(r);
+
+Frame
+  T0 = sqrt(De)/sqrt(Si)*(d t + j*sin(th)^2*d ph),
+  T1 = sqrt(Si)/sqrt(De)*d r,
+  T2 = sqrt(Si)/sqrt(f)*d th,
+  T3 = sqrt(f)/sqrt(Si)*sin(th)*(j*d t + (r^2+j^2)*d ph);
+
+Constants L0,L1,L2,L3,L4,L5,L6;
+L-Constants  LCONST1 =  L0,
+             LCONST2 = -L0+2*L1,
+             LCONST3 =  L0+2*L3-2*L1,
+             LCONST4 =  L0+2*L5-2*L2,
+             LCONST5 = -L0+2*L2,
+             LCONST6 =  L0+2*L4-2*L2,
+             LCONST0 = 1;
+
+FF = sqrt(1+2/3*L*L3)/sqrt(GCONST)*q/Si^2*( (r^2-J^2)*S01
+              +2*r*J*S23);
+
+On TORSION,CCONST;
+
+New V.n5;
+V1=1/Si^2*((Q-q^2/2)*r-m*J^2);
+V2=-sqrt(f)/sqrt(Si)/Si^2*Q*j*sin(th)*J;
+V3=sqrt(f)/sqrt(Si)/Si^2*Q*j*sin(th)*r;
+V4=1/Si^2*Q*J;
+V5=1/Si^2*Q*r;
+
+Torsion
+  THETA0 = sqrt(Si)/sqrt(De)*(V1*S01+2*V4*S23) +
+           Si/De*(-V2*(S02-S12)-V3*(S03-S13)),
+  THETA2 = sqrt(Si)/sqrt(De)*(-V5*(S02-S12)-V4*(S03-S13)),
+  THETA3 = sqrt(Si)/sqrt(De)*( V4*(S02-S12)-V5*(S03-S13));
+  THETA1 = THETA0;
+
+Transform Metric ( (1/sqrt(2),-1/sqrt(2),0,0),
+                   (1/sqrt(2), 1/sqrt(2),0,0),
+	           (0,0,1/sqrt(2), i/sqrt(2)),
+                   (0,0,1/sqrt(2),-i/sqrt(2)) );
+
+Find Maxwell Eq, TEM;
+Find Curvature Components;
+Show Time;
+
+Let sin(th)^2=1-cos(th)^2;
+
+Let f  = 1 + L/3*j^2*cos(th)^2;
+Let Si = r^2 + j^2*cos(th)^2;
+Let De = r^2 + j^2 + q^2 - 2*m*r - L/3*r^2*(r^2+j^2);
+Let Q  = m*r-q^2/2;
+Let J  = j*cos(th);
+
+Evaluate All;
+Show Time;
+Write Maxwell Eq;
+Write Curvature Components;
+
+Let CCONST=L;
+Let MC1=-2-4/3*L*L3, MC2=4+8/3*L*L3;
+
+Find and Write Gravitational Equations;
+Show Time;
+

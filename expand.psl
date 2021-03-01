@@ -1,0 +1,21 @@
+% This file is the part of GRG 3.2 (C) 1997 V.V. Zhytnikov
+lisp$
+off echo$
+dskin "grgxmacr.sl"$
+off lower$
+expand!-file!>( "grgdecl.sl"  , "xdecl.sl"  )$
+expand!-file!>( "grggeom.sl"  , "xgeom.sl"  )$
+expand!-file!>( "grggrav.sl"  , "xgrav.sl"  )$
+expand!-file!>( "grginit.sl"  , "xinit.sl"  )$
+expand!-file!>( "grgclass.sl" , "xclass.sl" )$
+expand!-file!>( "grgcomm.sl"  , "xcomm.sl"  )$
+expand!-file!>( "grgcoper.sl" , "xcoper.sl" )$
+expand!-file!>( "grgmain.sl"  , "xmain.sl"  )$
+expand!-file!>( "grgmater.sl" , "xmater.sl" )$
+expand!-file!>( "grgprin.sl"  , "xprin.sl"  )$
+expand!-file!>( "grgproc.sl"  , "xproc.sl"  )$
+expand!-file!>( "grgtrans.sl" , "xtrans.sl" )$
+on lower$
+prin2 "### All done."$ terpri()$
+quit$
+end;

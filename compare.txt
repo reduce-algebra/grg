@@ -1,0 +1,72 @@
+
+   This file is part of GRG 3.2  Copyright (C) 1997 Vadim V. Zhytnikov
+
+   Disclaimer: The opinion expressed here is the opinion of V.Zhytnikov
+	       and nobody else.
+
+
+   GRG 3.2 versus EXCALC
+
+   The GRG 3.2 and EXCALC are two rather similar programs. Both are
+based on the computer algebra system REDUCE and designed for the
+problems in differential geometry. They work with the differential
+forms, vectors, tensors and use convenient notation very similar
+to the traditional mathematical one. Both programs work with spaces
+of any dimensionality and can represent tensors with respect to
+arbitrary frame.
+
+   On the other hand there are also a number of important differences
+between EXCALC and GRG 3.2. In particular:
+
+1. EXCALC works with tensors whose components are presented with
+   respect to certain frame. GRG 3.2 understands more complicate
+   quantities having coordinate, frame, spinorial and enumerating
+   indices. GRG 3.2 understands also pseudo-tensors and tensor
+   densities. I'd like to emphasize also GRG's ability to work with
+   spinors.
+
+2. Working with tensors EXCALC actually knows very little about the
+   "covariant" properties of these quantities. On the other hand
+   GRG knows all standard covariant operations and operators.
+   In particular GRG 3.2 performs frame, spinor and coordinate
+   transformations. It automatically computes Lie derivatives,
+   covariant derivatives and differentials of any tensor or spinor
+   quantity. GRG can easily transform the frame indices to coordinate
+   ones and vice versa.
+
+3. GRG 3.2 allows one to save the result of computations in
+   the form which can be later used in other computer algebra
+   programs: Mathematica, Maple and Macsyma.
+
+4. Unlike EXCALC the GRG 3.2 knows almost 150 built-in quantities
+   and numerous built-in formulas for their calculation. So, in
+   GRG you have already solutions for many standard problems.
+   On the contrary to obtain any result with EXCALC it is
+   necessary to write your own program.
+
+5. GRG requires all variables and functions to be declared which
+   makes it more reliable than EXCALC.
+
+6. The input languages of GRG and EXCALC are very different.
+   EXCALC in fact has no any special language and uses the
+   REDUCE programming language with all control instructions:
+   loops, if-then-else, procedures etc. GRG uses the completely
+   different approach. It has its own quite simple language
+   which lacks the aforementioned programming facilities.
+   Commands of GRG input language resemble simple English
+   phrases. This is especially convenient for people who are
+   not interested (or skillful) in programming.
+
+7. The performance of both programs (say the run time for
+   analogous problems) is approximately equal.
+
+8. The advantage of EXCALC is that it can operate with abstract
+   p-forms while in GRG any p-form is always represented
+   as the exterior product of p frame 1-forms (frame may be
+   arbitrary).
+
+9. Another potential advantage of EXCALC is the ability to compute
+   the variational derivatives. Unfortunately in practice this
+   facility is rather limited and buggy.
+
+----------------------------------------------------------------------
