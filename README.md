@@ -8,7 +8,7 @@ The computer algebra system **GRG** is designed to make calculation in different
 
 One of the key features of **GRG** is that it knows a large number of built-in usual field-theoretical and geometrical quantities and formulas for their computation providing ready solutions to many standard problems.
 
-Another unique feature of **GRG** is that it can export results of calculations into other computer algebra system such as *Maple*, *Mathematica*, *Macsyma* or **REDUCE** in order to use these systems to proceed with analysis of the data. The *LaTeX* output format is supported as well. **GRG** is compatible with the **REDUCE** graphics shells providing nice book-quality output with Greek letters, integral signs, etc.
+Another unique feature of **GRG** is that it can export results of calculations into other computer algebra system such as *Maple*, *Mathematica*, *Macsyma* or ***REDUCE*** in order to use these systems to proceed with analysis of the data. The *LaTeX* output format is supported as well. **GRG** is compatible with the **REDUCE** graphics shells providing nice book-quality output with Greek letters, integral signs, etc.
 
 The main built-in **GRG** capabilities are:
 
@@ -30,7 +30,7 @@ The main built-in **GRG** capabilities are:
 
 ## Documentation
 
-- [Complete GRG Manual and Reference Guide](https://github.com/reduce-algebra/grg/tree/master/doc)
+- [User Manual and Reference Guide](https://github.com/reduce-algebra/grg/tree/master/doc)
 
 ## Author
 
