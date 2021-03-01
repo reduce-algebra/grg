@@ -1,4 +1,7 @@
+# Documentaiton
 doc/* linguist-documentation
+# DOS Executables
 dos/* linguist-vendored
-*.sl linguist-language=Lisp
-*.red linguist-language=Lisp
+# "Reduce" and "Standard Lisp" unavailable.
+*.sl linguist-vendored
+*.red linguist-vendored
