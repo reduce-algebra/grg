@@ -7,5 +7,5 @@ mergeable:
       - do: comment
         payload:
           body: >
-            Thanks for your contribution!  Unfortunately, we don't use GitHub pull requests to manage code contributions to this repository.  Instead, please see the [GRG Homepage](https://reduce-algebra.sourceforge.io/grg32/grg32.php), the [REDUCE Homepage](https://reduce-algebra.sourceforge.io) or the [REDUCE Support Page](https://sourceforge.net/projects/reduce-algebra/support) at Sourceforge for details on how to report a bug."
+            Thanks for your contribution!  Unfortunately, we don't use GitHub pull requests to manage code contributions to this repository.  Instead, please see the [GRG Homepage](https://reduce-algebra.sourceforge.io/grg32/grg32.php), the [REDUCE Homepage](https://reduce-algebra.sourceforge.io) or the [REDUCE Support Page](https://sourceforge.net/projects/reduce-algebra/support) at Sourceforge for further details."
       - do: close
