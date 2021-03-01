@@ -47,3 +47,7 @@ E-mail: vvzhy@td.lpi.ac.ru
 E-mail: grg@curie.phy.ncu.edu.tw
         Subject: for Zhytnikov
 ```
+
+## Upstream
+
+- [GRG Homepage](https://reduce-algebra.sourceforge.io/grg32/grg32.php)
