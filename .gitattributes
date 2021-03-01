@@ -1,0 +1,4 @@
+doc/* linguist-documentation
+dos/* linguist-vendored
+*.sl linguist-language=Lisp
+*.red linguist-language=Lisp
