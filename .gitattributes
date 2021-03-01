@@ -5,3 +5,6 @@ dos/* linguist-vendored
 # "Reduce" and "Standard Lisp" unavailable.
 *.sl linguist-vendored
 *.red linguist-vendored
+# Exclude TeX to avoid misclassification.
+*.tex linguist-vendored
+doc/*.tex linguist-vendored
