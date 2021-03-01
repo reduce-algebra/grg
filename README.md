@@ -28,7 +28,9 @@ The main built-in **GRG** capabilities are:
 - Newman-Penrose formalism.
 - Gravitational equations for the theory with arbitrary gravitational Lagrangian in Riemann and Riemann-Cartan spaces.
 
-The detailed documentation including complete manual and short reference guide is provided.
+## Documentation
+
+- [Complete GRG Manual and Reference Guide](https://github.com/reduce-algebra/grg/tree/master/doc)
 
 ## Author
 
