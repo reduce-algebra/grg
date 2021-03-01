@@ -30,9 +30,7 @@ The main built-in GRG capabilities are:
 
 The detailed documentation including complete manual and short reference guide is provided.
 
-GRG is free of charge.
-
-The address for correspondence:
+## Author
 
 ```text
 Vadim V. Zhytnikov
@@ -47,6 +45,10 @@ E-mail: vvzhy@td.lpi.ac.ru
 E-mail: grg@curie.phy.ncu.edu.tw
         Subject: for Zhytnikov
 ```
+
+## License
+
+- GRG is free of charge. See [LICENSE](https://github.com/reduce-algebra/grg/blob/master/LICENSE) for full details.
 
 ## Upstream
 
