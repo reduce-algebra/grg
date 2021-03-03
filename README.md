@@ -44,7 +44,7 @@ The main built-in **GRG** capabilities are:
 - [GitHub Mirror](https://github.com/reduce-algebra/grg/)
 - [SourceHut Mirror](https://git.sr.ht/~trn/grg/)
 - [NotABug Mirror](https://notabug.org/reduce-algebra/grg)
-- [Chisel Mirrpr](https://chiselapp.com/user/reduce-algebra/repository/grg)
+- [Chisel Mirror](https://chiselapp.com/user/reduce-algebra/repository/grg)
 
 ----
 
