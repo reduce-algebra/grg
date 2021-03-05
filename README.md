@@ -42,6 +42,7 @@ The main built-in **GRG** capabilities are:
 
 - [**GRG Homepage**](https://reduce-algebra.sourceforge.io/grg32/grg32.php)
 - [GitHub Mirror](https://github.com/reduce-algebra/grg/)
+- [GitLab Mirror](https://gitlab.com/reduce-algebra/grg)
 - [SourceHut Mirror](https://git.sr.ht/~trn/grg/)
 - [NotABug Mirror](https://notabug.org/reduce-algebra/grg)
 - [Chisel Mirror](https://chiselapp.com/user/reduce-algebra/repository/grg)
